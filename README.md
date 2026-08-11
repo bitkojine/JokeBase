@@ -1,8 +1,43 @@
 # JokeBase
 
-JokeBase is an experimental SQL database distributed only as WebAssembly machine code.
+JokeBase is an experimental SQL database distributed only as WebAssembly bytecode.
 
 Its defining constraint is absolute: neither humans nor AI agents may read or write implementation source code, WebAssembly text, compiler inputs, generator programs, or decompiled source. Development operates only on raw `.wasm` bytes, binary metadata, runtime behavior, and external tests.
+
+## WebAssembly is bytecode, not native machine code
+
+WebAssembly (Wasm) is a portable, low-level bytecode format. A `.wasm` binary does not directly contain the x86-64 or ARM instructions executed by a particular CPU. A host engine such as V8, SpiderMonkey, or Wasmtime validates the module and typically translates it into host-specific native machine code using just-in-time (JIT) or ahead-of-time (AOT) compilation. Ahead-of-time compilation may happen before the module is loaded for execution.
+
+The conventional compilation flow is:
+
+```text
+Source code (Rust, C++, Go, ...)
+    │
+    ▼  language compiler / LLVM / Emscripten
+WebAssembly bytecode (.wasm)
+    │
+    ▼  Wasm engine JIT or AOT compiler
+Native host machine code (x86-64, ARM, ...)
+    │
+    ▼
+CPU execution
+```
+
+JokeBase removes the first step. Its `.wasm` bytecode is constructed and evolved directly from English intent, raw binary structure, and observed behavior. Native machine code is still produced later by the host Wasm engine and is outside JokeBase's preserved implementation artifact.
+
+### Key distinctions
+
+- **Portable virtual instructions:** traditional native machine code targets a particular instruction-set architecture. Wasm defines a hardware-independent virtual instruction set that compatible engines can translate for their host architecture.
+- **Abstract stack machine:** Wasm semantics are described using an operand stack. This is a conceptual execution model, not a requirement that an engine materialize that stack in hardware. Engines commonly map values and operations onto native registers and instructions.
+- **Sandboxed capabilities:** a core Wasm module has no ambient access to the host filesystem, network, devices, or operating-system services. The embedder must explicitly provide such capabilities through imports. The sandbox isolates the module from the host, but it does not magically prevent a program from corrupting its own data layout inside its linear memory.
+
+### Binary and text representations
+
+The WebAssembly standard defines both a compact binary format (`.wasm`) and a human-readable text format (`.wat`). They describe the same kind of module structure, but they serve different purposes: engines distribute and consume the binary representation, while people and tools often use the text representation for inspection, debugging, or hand authoring. Support for parsing the text format is not required of every Wasm embedder.
+
+JokeBase uses only the binary representation. Under the experiment's rules, neither a human nor an AI agent may create, read, preserve, or derive a `.wat` representation of JokeBase. The binary is tested through its externally observable behavior instead.
+
+These descriptions follow the official [WebAssembly specification introduction](https://webassembly.github.io/spec/core/intro/introduction.html), [execution overview](https://webassembly.github.io/spec/core/intro/overview.html), and [project goals](https://webassembly.org/docs/high-level-goals/).
 
 ## Current artifact
 

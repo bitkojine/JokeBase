@@ -94,15 +94,24 @@
       "sha256": "8bab772889c791c863e31df0606f5354fb6cc9181457cf7424ae9e019b07b892",
       "parent_sha256": "84dfff17ba326bbc10da55717a2ad80869f1d5347f28904211b80ba91b77b1f1",
       "capability_delta": "general scalar signed-i32/NULL literal-list IN and NOT IN evaluator with three-valued semantics and a complete pinned SQLLogicTest expression-family pass"
+    },
+    {
+      "sequence": 10,
+      "file": "promoted/JokeBase-0010-sha256-f33be846e8ff2b13667703817e6dad19614cdea9cd090687f80b0b530566de9b.wasm",
+      "evidence_file": "promoted/JokeBase-0010-evidence.json",
+      "bytes": 4955,
+      "sha256": "f33be846e8ff2b13667703817e6dad19614cdea9cd090687f80b0b530566de9b",
+      "parent_sha256": "8bab772889c791c863e31df0606f5354fb6cc9181457cf7424ae9e019b07b892",
+      "capability_delta": "state-dependent signed-i32/NULL IN and NOT IN over t1 or SELECT * FROM t1 with three-valued semantics and a 16-query contiguous SQLLogicTest prefix"
     }
   ],
-  "current_promoted_sha256": "8bab772889c791c863e31df0606f5354fb6cc9181457cf7424ae9e019b07b892",
+  "current_promoted_sha256": "f33be846e8ff2b13667703817e6dad19614cdea9cd090687f80b0b530566de9b",
   "external_replication": {
     "status": "configured and verified",
     "repository": "https://github.com/bitkojine/JokeBase",
     "visibility": "public",
     "branch": "main",
     "first_public_commit": "684433aaedb17417053747fcd5faee4b63e8770d",
-    "verification": "GitHub-served JokeBase-v1.wasm matched current_promoted_sha256"
+    "verification": "Sequence 9 was verified; sequence 10 is pending push verification"
   }
 }

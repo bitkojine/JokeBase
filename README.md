@@ -85,6 +85,69 @@ It also passed:
 
 These results support only the declared capability profile. They do not imply conformance with the complete SQLLogicTest corpus, SQLite, SQLancer, or SQL generally.
 
+## Developing an opaque database as a feedback-control problem
+
+Without source code, implementation inspection cannot close the development loop. JokeBase instead borrows a practical model from control theory: treat the binary as an unknown, partially observed system; apply a bounded intervention; measure the response; reject unsafe states; and re-plan from the new evidence.
+
+This is an engineering analogy, not a claim that software evolution is a conventional linear plant. The mapping is nevertheless useful:
+
+| Control concept | JokeBase equivalent |
+| --- | --- |
+| Plant | The candidate `.wasm` binary and its runtime state |
+| Control input | A transactional mutation of raw binary bytes |
+| Sensors | Wasm validation, SQL results, errors, snapshots, hashes, and test oracles |
+| Reference signal | The declared database contract and next pinned-suite behavior |
+| Observer | Binary metadata plus hypotheses inferred from permitted input/output experiments |
+| Residual | The structured difference between expected and observed behavior |
+| Safety supervisor | Deterministic promotion gates and immutable regression requirements |
+| Safe fallback | The previous content-addressed promoted binary |
+
+### Observability before confidence
+
+Passing examples do not necessarily make the relevant behavior observable. Different internal mistakes can produce identical outputs when the chosen database state does not exercise them.
+
+Sequence 13 produced a concrete example. The first candidate for `SELECT ... IN (SELECT x+y FROM t1,t2)` used the wrong memory addresses for `t1`. It still passed all four newly targeted SQLLogicTest queries because both tables were empty: the faulty loop never read either address. Populating the tables immediately exposed the defect.
+
+The lesson is the control-theory idea of informative excitation. Every new capability must be driven through states capable of distinguishing plausible failures. Depending on the feature, that includes:
+
+- absent, empty, populated, and full schemas;
+- matches, misses, and duplicate values;
+- `NULL` and non-`NULL` inputs;
+- minimum, maximum, ordinary, and overflowing arithmetic values;
+- success, malformed input, and failure atomicity;
+- state before and after snapshot restoration;
+- every relevant combination of interacting tables.
+
+For sequence 13, the four empty upstream examples were therefore only the first sensor readings. Promotion also required 50,000 populated comparisons against SQLite, including 3,031 row pairs whose mathematical sum exceeded the signed-32-bit range. Those experiments found both the incorrect memory map and the risk of a false match caused by wrapping Wasm arithmetic.
+
+### Receding-horizon mutation
+
+Changes are kept small and feedback is collected after each one:
+
+1. choose one coherent semantic boundary from a pinned suite;
+2. form explicit behavioral hypotheses and distinguishing experiments;
+3. apply one recoverable raw-byte intervention to a disposable candidate;
+4. validate the Wasm container and instruction-stack types immediately;
+5. run focused probes, then differential, property, stateful, robustness, and persistence tests;
+6. update the behavioral evidence and re-plan from what was actually observed;
+7. promote only when all hard residuals are zero.
+
+This resembles receding-horizon control: plan ahead, apply only the next bounded action, observe the real response, and plan again. It prevents unmeasured binary edits from accumulating faster than failures can be isolated.
+
+### A safety supervisor, not a single score
+
+New capability cannot compensate for corruption of an existing invariant. JokeBase therefore does not optimize one blended "quality" number. Promotion uses a lexicographic safety barrier: the candidate must validate, preserve its parent and ABI, remain bounded and non-trapping, pass all declared regressions, preserve statement and snapshot atomicity, reproduce an exact hash, and state unsupported behavior honestly. Only then does a longer test-suite prefix count as progress.
+
+Failed experiments remain disposable. Every accepted state has an immutable content-addressed predecessor, so the previous promoted artifact acts as a known-safe fallback. The public repository then provides an independently retrievable copy whose bytes are verified after publication.
+
+### An observer that must not become a decompiler
+
+Control requires useful state estimates, but the experiment forbids reconstructing implementation source. JokeBase may record binary metadata such as section sizes, opaque function indices and hashes, globals, memory regions, snapshot layouts, test coverage identifiers, and observed mutation-to-behavior relationships. It may not produce WAT, pseudocode, an intermediate representation, decompiled logic, or any other source-like implementation.
+
+The objective is not to identify the hidden implementation uniquely. It is to collect enough informative behavioral evidence to control its evolution and justify each bounded claim. This is close in spirit to data-informativity approaches, where data can be sufficient for a control property even when they do not uniquely identify the entire system.
+
+The control perspective is informed by Åström and Murray's open [Feedback Systems](https://www.cds.caltech.edu/~murray/amwiki/Version_2.10c.html), the paper [Data informativity: a new perspective on data-driven analysis and control](https://research.rug.nl/en/publications/data-informativity-a-new-perspective-on-data-driven-analysis-and-/), and research on [safe exploration under uncertain dynamics](https://proceedings.mlr.press/v120/liu20a.html) and [safe learning with model-predictive control](https://proceedings.mlr.press/v242/buerger24a.html).
+
 ## Repository policy
 
 Implementation artifacts in this repository are binaries. Human-readable files describe capabilities, provenance, tests, hashes, and observed behavior; they are not an implementation source representation.

@@ -157,8 +157,8 @@
     "visibility": "public",
     "branch": "main",
     "first_public_commit": "684433aaedb17417053747fcd5faee4b63e8770d",
-    "latest_verified_sequence": 14,
-    "latest_promotion_commit": "e66843e7aea5b69afb4bb5cdcbd19c02586d87f8",
+    "latest_verified_sequence": 15,
+    "latest_promotion_commit": "8b3b95c7e9936420915ec7bb4ea5a77f79405cac",
     "verification": "GitHub-served JokeBase-v1.wasm matched current_promoted_sha256"
   }
 }

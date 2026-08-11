@@ -98,7 +98,11 @@
   ],
   "current_promoted_sha256": "8bab772889c791c863e31df0606f5354fb6cc9181457cf7424ae9e019b07b892",
   "external_replication": {
-    "status": "not configured",
-    "required_next_step": "replicate the artifacts directory to a versioned remote or independent storage location"
+    "status": "configured and verified",
+    "repository": "https://github.com/bitkojine/JokeBase",
+    "visibility": "public",
+    "branch": "main",
+    "first_public_commit": "684433aaedb17417053747fcd5faee4b63e8770d",
+    "verification": "GitHub-served JokeBase-v1.wasm matched current_promoted_sha256"
   }
 }

@@ -184,8 +184,8 @@
     "visibility": "public",
     "branch": "main",
     "first_public_commit": "684433aaedb17417053747fcd5faee4b63e8770d",
-    "latest_verified_sequence": 17,
-    "latest_promotion_commit": null,
-    "verification": "sequence 18 public replication pending"
+    "latest_verified_sequence": 18,
+    "latest_promotion_commit": "52523d6ab203db7cbb6ddb7890113742c7045eae",
+    "verification": "GitHub-served JokeBase-v1.wasm matched current_promoted_sha256 and enforced the sequence-18 input-window boundary"
   }
 }

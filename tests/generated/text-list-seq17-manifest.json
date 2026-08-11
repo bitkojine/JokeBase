@@ -1,0 +1,41 @@
+{
+  "format": "JokeBase materialized differential corpus manifest v1",
+  "corpus": {
+    "file": "text-list-seq17-sqlite-3.53.3.jsonl.gz",
+    "compression": "gzip with timestamp and original filename omitted",
+    "records": 50000,
+    "uncompressed_bytes": 6088912,
+    "compressed_bytes": 1851102,
+    "uncompressed_sha256": "b3badf8c446d367acf12d036d0baa42036ff8067a382f9e6d9e8626f4dcbaa91",
+    "compressed_sha256": "e5ca0679ae89dc5e9594a8d9a59bee6f612bd486bfff281c0abfcd324aa7d1a8"
+  },
+  "record_schema": {
+    "id": "contiguous integer from 0 through 49999",
+    "seed": "integer from 0 through 249",
+    "index": "integer from 0 through 199 within the seed",
+    "sql": "complete UTF-8 scalar SELECT statement",
+    "expected": "SQLite scalar result: 0, 1, or null"
+  },
+  "generation_identity": {
+    "prng": "xorshift32",
+    "seed_count": 250,
+    "records_per_seed": 200,
+    "per_seed_initial_state": "unsigned-32-bit value of 0x9e3779b9 XOR seed",
+    "reference": "SQLite 3.53.3 exposed by Node.js DatabaseSync"
+  },
+  "coverage_totals": {
+    "list_elements": 200473,
+    "null_elements": 25332,
+    "empty_string_elements": 11378,
+    "null_results": 10201,
+    "zero_results": 20015,
+    "one_results": 19784,
+    "maximum_sql_utf8_bytes": 181
+  },
+  "replay": {
+    "sqlite_3_53_3": "PASS: all 50000 expected results reproduced",
+    "jokebase_sequence_18": "PASS: all 50000 expected results reproduced",
+    "jokebase_artifact_sha256": "1d238226c11e693980b61527ced25dde91822a56131243f489e51193231491f1"
+  },
+  "scope": "This corpus makes the exact text-list differential inputs and expected outputs reproducible. It does not make the other recorded generated campaigns reproducible."
+}

@@ -93,6 +93,18 @@
     "null_results": 10201,
     "coverage": "zero-to-eight-element lists, IN and NOT IN, exact matches and misses, empty and numeric-looking strings, commas and spaces inside literals, duplicate values, and NULL contamination"
   },
+  "materialized_text_list_corpus": {
+    "status": "PASS",
+    "manifest": "tests/generated/text-list-seq17-manifest.json",
+    "compressed_file": "tests/generated/text-list-seq17-sqlite-3.53.3.jsonl.gz",
+    "records": 50000,
+    "uncompressed_bytes": 6088912,
+    "compressed_bytes": 1851102,
+    "uncompressed_sha256": "b3badf8c446d367acf12d036d0baa42036ff8067a382f9e6d9e8626f4dcbaa91",
+    "compressed_sha256": "e5ca0679ae89dc5e9594a8d9a59bee6f612bd486bfff281c0abfcd324aa7d1a8",
+    "sqlite_replay": "PASS: 50000 of 50000",
+    "jokebase_sequence_18_replay": "PASS: 50000 of 50000"
+  },
   "text_list_malformed_robustness": {
     "status": "PASS",
     "cases": 20000,

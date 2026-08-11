@@ -81,6 +81,14 @@
     "next_unsupported_statement": "CREATE TABLE t4(a INTEGER UNIQUE)",
     "claim_boundary": "The contiguous prefix through line 355 passes. The complete in1.test file and wider SQLLogicTest corpus do not."
   },
+  "pinned_upstream_provenance": {
+    "status": "PASS",
+    "manifest": "tests/upstream/provenance.json",
+    "repository": "https://www.sqlite.org/sqllogictest/",
+    "retrieved_at_utc": "2026-08-11T17:57:54Z",
+    "byte_equal_files": 4,
+    "license_notice": "tests/upstream/SQLLOGICTEST-COPYRIGHT.md"
+  },
   "text_list_sqlite_differential": {
     "status": "PASS",
     "reference": "SQLite 3.53.3",

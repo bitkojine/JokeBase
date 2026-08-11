@@ -76,7 +76,9 @@ This is not a general SQL implementation. Tables beyond `t1`, `t2`, and `t3`, mu
 
 ## External evidence
 
-Sequence 18 retains the first 58 queries in the pinned SQLite SQLLogicTest `in1.test` file contiguously, including literal-list membership, independent `t1`/`t2`/`t3` table-backed membership, cross-table `x+y` membership, decimal membership, text membership with integer affinity, hexadecimal blob membership, and text-literal lists. The next unsupported statement creates `t4`, a fourth table.
+Sequence 18 retains the first 58 queries in the pinned SQLite-hosted SQLLogicTest `in1.test` file contiguously, including literal-list membership, independent `t1`/`t2`/`t3` table-backed membership, cross-table `x+y` membership, decimal membership, text membership with integer affinity, hexadecimal blob membership, and text-literal lists. The next unsupported statement creates `t4`, a fourth table.
+
+The three pinned suite files were re-fetched from the official [SQLite SQLLogicTest repository](https://www.sqlite.org/sqllogictest/) and compared byte-for-byte on 2026-08-11. `tests/upstream/provenance.json` records every official raw URL, upstream path, retrieval validator, byte count, and SHA-256. The upstream copyright/license notice is preserved alongside the files.
 
 It also passed:
 

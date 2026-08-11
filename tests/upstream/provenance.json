@@ -1,0 +1,55 @@
+{
+  "format": "JokeBase pinned upstream provenance v1",
+  "upstream": {
+    "project": "SQLLogicTest",
+    "repository_owner": "SQLite project",
+    "repository": "https://www.sqlite.org/sqllogictest/",
+    "retrieved_at_utc": "2026-08-11T17:57:54Z",
+    "revision_selector": "tip",
+    "verification": "Each local file compared byte-for-byte equal with the official raw response at retrieval time. SHA-256 pins the retrieved content independently of the moving tip selector."
+  },
+  "files": [
+    {
+      "local": "tests/upstream/sqlite-sqllogictest-in1.test",
+      "upstream_path": "test/evidence/in1.test",
+      "raw_url": "https://www.sqlite.org/sqllogictest/raw/test/evidence/in1.test?ci=tip",
+      "bytes": 14926,
+      "sha256": "83d8958a4f86de196a0756e548f24c71db6edf2679d70393d546d542c84fc2fd",
+      "http_etag_at_retrieval": "a160bb702a62758660eaf1ab3d5f5197",
+      "byte_comparison": "PASS"
+    },
+    {
+      "local": "tests/upstream/sqlite-sqllogictest-select1.test",
+      "upstream_path": "test/select1.test",
+      "raw_url": "https://www.sqlite.org/sqllogictest/raw/test/select1.test?ci=tip",
+      "bytes": 257999,
+      "sha256": "e93b83d64d06f78aee0e690455b6c604e86ad9a339f77d927a782cefb6b0e1d5",
+      "http_etag_at_retrieval": "2b63543b39d4311acdb4313c57bf9b08",
+      "byte_comparison": "PASS"
+    },
+    {
+      "local": "tests/upstream/sqlite-sqllogictest-droptable.test",
+      "upstream_path": "test/evidence/slt_lang_droptable.test",
+      "raw_url": "https://www.sqlite.org/sqllogictest/raw/test/evidence/slt_lang_droptable.test?ci=tip",
+      "bytes": 1102,
+      "sha256": "4f4ecbc72c6a6d82b5cf54b2905431256ca8a901ff861c82d8d8b6a58ffef04b",
+      "http_etag_at_retrieval": "7f40df042d65bbf68b66852cccd42b9a",
+      "local_rename": "The upstream basename slt_lang_droptable.test was normalized when first pinned.",
+      "byte_comparison": "PASS"
+    },
+    {
+      "local": "tests/upstream/SQLLOGICTEST-COPYRIGHT.md",
+      "upstream_path": "COPYRIGHT.md",
+      "raw_url": "https://www.sqlite.org/sqllogictest/raw/COPYRIGHT.md?ci=tip",
+      "bytes": 551,
+      "sha256": "ff72613ed2ee289ae0d8a9d6ba02f8df624ff8dabea04a4d1fa7bb26828ca5c9",
+      "http_etag_at_retrieval": "1fa3631ba7ab2a167b2d2c1de2632fee",
+      "byte_comparison": "PASS"
+    }
+  ],
+  "license": {
+    "notice_file": "tests/upstream/SQLLOGICTEST-COPYRIGHT.md",
+    "summary": "Copyright 2008 D. Richard Hipp; redistribution/modification permitted under whichever of GPL, BSD, MIT, or CC0 best applies; no attribution required; no warranty.",
+    "authority": "The preserved upstream notice is authoritative; this summary is not a substitute for it."
+  }
+}

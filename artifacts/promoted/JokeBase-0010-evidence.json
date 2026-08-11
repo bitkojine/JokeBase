@@ -87,8 +87,9 @@
     "source_free_policy": "Only raw Wasm bytes, binary metadata, runtime behavior, and test data were used; no implementation source, WAT, compiler input, generator file, or decompiled source was created or inspected."
   },
   "public_replication": {
-    "status": "pending push verification",
+    "status": "PASS",
     "repository": "https://github.com/bitkojine/JokeBase",
-    "expected_remote_artifact_sha256": "f33be846e8ff2b13667703817e6dad19614cdea9cd090687f80b0b530566de9b"
+    "promotion_commit": "160816a0ca3771b5bd707c3dbacbfbab01b1a06b",
+    "remote_artifact_sha256": "f33be846e8ff2b13667703817e6dad19614cdea9cd090687f80b0b530566de9b"
   }
 }

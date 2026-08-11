@@ -112,6 +112,8 @@
     "visibility": "public",
     "branch": "main",
     "first_public_commit": "684433aaedb17417053747fcd5faee4b63e8770d",
-    "verification": "Sequence 9 was verified; sequence 10 is pending push verification"
+    "latest_verified_sequence": 10,
+    "latest_promotion_commit": "160816a0ca3771b5bd707c3dbacbfbab01b1a06b",
+    "verification": "GitHub-served JokeBase-v1.wasm matched current_promoted_sha256"
   }
 }

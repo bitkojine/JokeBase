@@ -1,0 +1,27 @@
+{
+  "status": "promoted as sequence 12",
+  "base_sequence": 11,
+  "base_artifact_sha256": "ffaf8b3462caf3219e9b1e147bdfff8fef542c056c899ebd84706a28301ff3a7",
+  "raw_binary_fragments": [
+    "function-02-reset.body.bin",
+    "function-24-snapshot-size.body.bin",
+    "function-25-snapshot-write.body.bin",
+    "function-26-snapshot-read.body.bin",
+    "function-32-t2-fallback.body.bin",
+    "function-34-t3-dispatch-create-insert.body.bin",
+    "function-35-t3-membership.body.bin"
+  ],
+  "representation": {
+    "t3_values_base": 29696,
+    "t3_null_flags_base": 30208,
+    "t3_schema_global": 7,
+    "t3_count_global": 8,
+    "snapshot_header_bytes": 24,
+    "snapshot_magic_version": 3
+  },
+  "promotion": {
+    "sequence": 12,
+    "sha256": "13884540774047410c44bc39952b2647d02cd1e79074bb40105cba9579ac9aec",
+    "evidence": "../promoted/JokeBase-0012-evidence.json"
+  }
+}

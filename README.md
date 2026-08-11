@@ -6,6 +6,8 @@ Its defining constraint is absolute: neither humans nor AI agents may read or wr
 
 The repository's primary research output is not only the binary. [`TOOLS-AND-LEARNINGS.md`](TOOLS-AND-LEARNINGS.md) records the actual toolchain, trust boundaries, failed candidates, control practices, and lessons learned while evolving software that nobody may inspect at source level. [`DEVLOG.md`](DEVLOG.md) is the append-only development flight log: new observations and corrections are appended, while prior records are never rewritten.
 
+For an accurate non-technical explanation of the experiment, its evidence, and its limits, see [`STORY-BRIEF.md`](STORY-BRIEF.md).
+
 ## WebAssembly is bytecode, not native machine code
 
 WebAssembly (Wasm) is a portable, low-level bytecode format. A `.wasm` binary does not directly contain the x86-64 or ARM instructions executed by a particular CPU. A host engine such as V8, SpiderMonkey, or Wasmtime validates the module and typically translates it into host-specific native machine code using just-in-time (JIT) or ahead-of-time (AOT) compilation. Ahead-of-time compilation may happen before the module is loaded for execution.

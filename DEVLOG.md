@@ -154,3 +154,8 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Local promotion commit: `0ef8111aeb68d0c03f0fd658a180c8774f3fb189` on `main`.
 - Publication observation: the public GitHub main branch advanced to that exact commit; a fresh GitHub-served raw `JokeBase-v1.wasm` download hashed to the promoted sequence-19 SHA-256.
 - Promotion status: promoted and publicly replicated.
+
+## 2026-08-12 — control record 0016
+
+- Preservation action: added `STORY-BRIEF.md`, a non-technical narrative guide grounded in the promoted artifact, public evidence, capability boundary, correction history, and stated limitations.
+- Communication control conclusion: an opaque-artifact project needs an equally precise public story. The brief distinguishes WebAssembly bytecode from native machine code, one pinned test file from whole-suite conformance, evidence from proof, and a real bounded database from a general SQL implementation.

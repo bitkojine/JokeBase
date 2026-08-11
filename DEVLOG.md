@@ -177,3 +177,10 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Positive observations: mutable integer and bounded TEXT state, unique/primary-key rejection, SQL NULL membership behavior, capacity rejection without state change, declared copy behavior, and host-managed save/restore all worked in ordinary user flows.
 - Friction observations: a host program is required; common multi-column schemas, arbitrary names, table removal, indexes, text projection, counting, sorting, embedded-quote TEXT, and general SQL are unavailable; accepted UPDATE syntax is whitespace-sensitive; errors are numeric codes rather than explanations.
 - Control conclusion: end-user journeys are an independent sensor. Suite passes establish semantic behavior, but only user-shaped trials expose ergonomics and documentation gaps.
+
+## 2026-08-12 — control record 0020
+
+- Demonstration action: executed the promoted sequence-19 artifact in a fresh black-box session, then rendered the exact observed create, insert, membership, snapshot, restore, and unsupported-query output as `assets/jokebase-sequence-19-live-demo.mp4`.
+- Artifact identity during the run: 18,438 bytes; SHA-256 `ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b`.
+- Communication constraint: available terminal applications could not be directly controlled for literal operating-system capture, so the public description calls the result a terminal-style rendering of live output rather than misrepresenting it as a graphical screen recording.
+- Control conclusion: visual demonstrations must preserve the same claim boundary as test evidence; a clean video is not a license to invent an interface or hide an unsupported operation.

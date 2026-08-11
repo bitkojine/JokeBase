@@ -12,6 +12,8 @@ Paprastesnis pasakojimas lietuviškai su iliustracija: [`JOKEBASE-PAPRASTAI-LT.m
 
 An outside-in application-developer assessment of the promoted artifact is recorded in [`END-USER-TRIAL-SEQUENCE-19.md`](END-USER-TRIAL-SEQUENCE-19.md).
 
+A short, evidence-bound vertical demo video is preserved at [`assets/jokebase-sequence-19-live-demo.mp4`](assets/jokebase-sequence-19-live-demo.mp4); its provenance and a suggested LinkedIn caption are in [`VIDEO-DEMO-SEQUENCE-19.md`](VIDEO-DEMO-SEQUENCE-19.md).
+
 ## WebAssembly is bytecode, not native machine code
 
 WebAssembly (Wasm) is a portable, low-level bytecode format. A `.wasm` binary does not directly contain the x86-64 or ARM instructions executed by a particular CPU. A host engine such as V8, SpiderMonkey, or Wasmtime validates the module and typically translates it into host-specific native machine code using just-in-time (JIT) or ahead-of-time (AOT) compilation. Ahead-of-time compilation may happen before the module is loaded for execution.

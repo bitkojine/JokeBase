@@ -1,0 +1,88 @@
+{
+  "artifact": {
+    "file": "JokeBase-v1.wasm",
+    "format": "WebAssembly MVP binary",
+    "bytes": 4417,
+    "sha256": "8bab772889c791c863e31df0606f5354fb6cc9181457cf7424ae9e019b07b892"
+  },
+  "parent": {
+    "sequence": 8,
+    "sha256": "84dfff17ba326bbc10da55717a2ad80869f1d5347f28904211b80ba91b77b1f1"
+  },
+  "capability_profile": {
+    "retained_database_profile": "sequence 8 one-table nullable signed-i32 database, including insert/select/update/delete and NULL-preserving snapshots",
+    "new_expression_family": "SELECT <signed-i32-or-lowercase-null> [NOT] IN (<empty-or-comma-separated-signed-i32/lowercase-null-list>)",
+    "expression_result": "one materialized integer result (0 or 1) or one materialized NULL result, exposed through result_get and result_is_null",
+    "semantics": [
+      "IN over an empty list is false, including for a NULL left operand",
+      "NOT IN over an empty list is true, including for a NULL left operand",
+      "a matching non-NULL element decides true for IN and false for NOT IN",
+      "without a match, NULL on either side yields NULL",
+      "without a match or NULL, IN is false and NOT IN is true",
+      "signed i32 boundaries and leading-zero decimal forms are accepted"
+    ],
+    "input_staging_contract": "SQL bytes must be staged in host-owned non-overlapping memory. Existing short-query tests use [0,4096); large-query tests use the unused high-memory region beginning at 32768. Because WebAssembly memory is exported, a host that writes across database-owned regions can corrupt state before execute is called.",
+    "unsupported_expression_forms": [
+      "floating-point, text, or blob operands",
+      "subqueries or table-valued right operands",
+      "unary plus",
+      "uppercase NULL in this scalar-expression parser",
+      "whitespace variants outside the declared grammar",
+      "expressions nested inside list elements"
+    ],
+    "broader_unsupported_database_features": [
+      "multiple tables or columns",
+      "arbitrary table and column names",
+      "ordering, grouping, joins, aggregates, indexes, constraints, and transactions",
+      "internal filesystem I/O and concurrency"
+    ]
+  },
+  "pinned_sqllogictest_family": {
+    "status": "PASS",
+    "suite": "SQLite sqllogictest in1.test",
+    "local_file": "tests/upstream/sqlite-sqllogictest-in1.test",
+    "sha256": "83d8958a4f86de196a0756e548f24c71db6edf2679d70393d546d542c84fc2fd",
+    "selection_rule": "all query records whose SQL is a scalar signed-integer-or-NULL literal [NOT] IN an empty or comma-separated signed-integer/NULL literal list",
+    "applicable_queries": 21,
+    "passed_queries": 21,
+    "null_results": 7,
+    "first_matching_line": 24,
+    "last_matching_line": 960,
+    "contiguous_opening_queries": 8,
+    "claim_boundary": "This is a complete coherent expression family within the pinned file, not conformance with the entire in1.test file or SQLLogicTest corpus."
+  },
+  "sqlite_generated_differential": {
+    "status": "PASS",
+    "reference": "SQLite 3.51.0",
+    "queries": 20000,
+    "empty_lists": 1960,
+    "null_results": 11570,
+    "true_results": 4200,
+    "generation_domain": "signed integers in [-1000,1000], NULL left operands, zero-to-nine-element lists, duplicate-capable integer/NULL lists, and both IN and NOT IN"
+  },
+  "stateful_regression": {
+    "status": "PASS",
+    "deterministic_seeds": 200,
+    "state_operations": 70200,
+    "independent_model_checks": 70000,
+    "fresh_instance_snapshot_roundtrips": 7521,
+    "verified": [
+      "sequence 8 nullable insert/select/update/delete behavior remains model-equivalent",
+      "scalar expression evaluation does not mutate table state",
+      "mixed NULL/integer snapshots remain recoverable"
+    ]
+  },
+  "robustness": {
+    "status": "PASS",
+    "large_expression_bytes": 24013,
+    "large_expression_staging_base": 32768,
+    "malformed_expression_rejection": "PASS",
+    "out_of_range_input_nontrapping": "PASS",
+    "state_preservation": "PASS"
+  },
+  "promotion": {
+    "sequence": 9,
+    "webassembly_validation": "PASS",
+    "source_free_policy": "Only raw Wasm bytes, binary metadata, runtime behavior, and test data were used; no implementation source, WAT, compiler input, generator file, or decompiled source was created or inspected."
+  }
+}

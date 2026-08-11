@@ -1,0 +1,123 @@
+{
+  "artifact": {
+    "file": "JokeBase-v1.wasm",
+    "format": "WebAssembly MVP binary",
+    "bytes": 2614,
+    "sha256": "6cdc59ea3e965631f3036c8bf39beb4dbbc871444998ef71f64895f41f2278bb"
+  },
+  "capability_profile": {
+    "schema": "one fixed table named t1 with one INTEGER column named x",
+    "row_capacity": 64,
+    "integer_domain": "signed 32-bit",
+    "statements": [
+      "CREATE TABLE t1(x INTEGER)",
+      "INSERT INTO t1 VALUES(<signed-i32>)",
+      "SELECT x FROM t1",
+      "SELECT x FROM t1 WHERE x < <signed-i32>",
+      "SELECT x FROM t1 WHERE x = <signed-i32>",
+      "SELECT x FROM t1 WHERE x > <signed-i32>",
+      "DELETE FROM t1 WHERE x < <signed-i32>",
+      "DELETE FROM t1 WHERE x = <signed-i32>",
+      "DELETE FROM t1 WHERE x > <signed-i32>",
+      "UPDATE t1 SET x = <signed-i32>",
+      "UPDATE t1 SET x = <signed-i32> WHERE x < <signed-i32>",
+      "UPDATE t1 SET x = <signed-i32> WHERE x = <signed-i32>",
+      "UPDATE t1 SET x = <signed-i32> WHERE x > <signed-i32>"
+    ],
+    "result_contract": "execute returns a row/change count or a negative error; SELECT rows are materialized separately from table and embedded-constant storage, then read with result_count and result_get",
+    "errors": {
+      "-1": "table already exists",
+      "-2": "table does not exist",
+      "-3": "row capacity reached",
+      "-4": "row or result index out of bounds",
+      "-10": "unsupported/malformed SQL or invalid input memory range"
+    },
+    "unsupported": [
+      "multiple tables or columns",
+      "WHERE expressions other than signed <, =, or > comparison between x and one signed-i32 literal",
+      "computed update expressions",
+      "NULL and three-valued logic",
+      "transactions",
+      "persistence",
+      "concurrency"
+    ]
+  },
+  "generated_property_campaign": {
+    "deterministic_seeds": 400,
+    "operations": 300110,
+    "assertions": 565765,
+    "metamorphic_partitions": 43400,
+    "boundary_traps": 0,
+    "status": "PASS",
+    "properties": [
+      "state agrees with an independent ordered-list model",
+      "DELETE count equals the number of matching rows",
+      "DELETE preserves retained-row order",
+      "deleting an absent value is an identity operation",
+      "equality-filter results agree with an independent model",
+      "signed less-than and greater-than results agree with an independent model and preserve row order",
+      "for every pivot, the <, =, and > partitions are disjoint and recombine to the full table multiset",
+      "all-row UPDATE change counts and resulting values agree with an independent model",
+      "repeated SELECT is idempotent",
+      "capacity rejection is atomic",
+      "syntax and integer-range rejection are atomic",
+      "out-of-bounds input ranges return -10 without trapping or mutation",
+      "reset removes schema and rows",
+      "failed SELECT clears stale query results"
+    ]
+  },
+  "sqlite_differential_campaign": {
+    "reference": "SQLite 3.51.0",
+    "deterministic_seeds": 50,
+    "statements": 5000,
+    "predicate_updates": 2178,
+    "comparisons": 7350,
+    "status": "PASS",
+    "compared_behavior": [
+      "ordered SELECT x FROM t1 results",
+      "SELECT x FROM t1 WHERE x <, =, or > <signed-i32> results",
+      "INSERT success",
+      "DELETE with signed <, =, or > predicates: change counts and resulting state",
+      "UPDATE with arbitrary signed-i32 assignments and signed <, =, or > predicates: change counts and resulting state",
+      "all-row UPDATE change counts and resulting state"
+    ]
+  },
+  "dqe_select_delete_campaign": {
+    "deterministic_seeds": 400,
+    "operations": 323914,
+    "assertions": 454878,
+    "select_delete_checks": 55007,
+    "boundary_traps": 0,
+    "status": "PASS",
+    "oracle": "For the same signed <, =, or > predicate, SELECT identifies exactly the rows DELETE reports deleting; the remaining table equals the ordered predicate complement."
+  },
+  "dqe_select_update_delete_campaign": {
+    "deterministic_seeds": 400,
+    "operations": 420588,
+    "assertions": 630306,
+    "select_update_checks": 42034,
+    "select_delete_checks": 27790,
+    "boundary_traps": 0,
+    "status": "PASS",
+    "oracle": "For each signed <, =, or > predicate, SELECT identifies the independently modeled row set; UPDATE and DELETE report the same matched cardinality when applied to that state, and each resulting ordered state matches its modeled transformation."
+  },
+  "artifact_preservation": {
+    "lineage_manifest": "artifacts/lineage.json",
+    "promoted_artifacts": 6,
+    "validated_wasm_artifacts": 6,
+    "resolved_parent_links": 5,
+    "latest_restore_matches_working_artifact": true,
+    "status": "PASS",
+    "external_replication": "not configured"
+  },
+  "pinned_upstream_inputs": {
+    "tests/upstream/sqlite-sqllogictest-droptable.test": "4f4ecbc72c6a6d82b5cf54b2905431256ca8a901ff861c82d8d8b6a58ffef04b",
+    "tests/upstream/sqlite-sqllogictest-in1.test": "83d8958a4f86de196a0756e548f24c71db6edf2679d70393d546d542c84fc2fd",
+    "tests/upstream/sqlite-sqllogictest-select1.test": "e93b83d64d06f78aee0e690455b6c604e86ad9a339f77d927a782cefb6b0e1d5"
+  },
+  "upstream_conformance_claim": {
+    "status": "not yet a meaningful suite slice",
+    "currently_verified": "the isolated CREATE TABLE t1(x INTEGER) statement from sqlite-sqllogictest-in1.test",
+    "next_gap": "general expressions and predicates are required before claiming a coherent query slice"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "status": "promoted as sequence 9",
+  "base_sequence": 8,
+  "base_artifact_sha256": "84dfff17ba326bbc10da55717a2ad80869f1d5347f28904211b80ba91b77b1f1",
+  "raw_binary_fragments": [
+    "function-01-execute.body.bin",
+    "function-30-scalar-in.body.bin"
+  ],
+  "data_delta": "25 raw UTF-8 bytes containing parser comparison constants",
+  "promotion": {
+    "sequence": 9,
+    "sha256": "8bab772889c791c863e31df0606f5354fb6cc9181457cf7424ae9e019b07b892",
+    "evidence": "../promoted/JokeBase-0009-evidence.json"
+  }
+}

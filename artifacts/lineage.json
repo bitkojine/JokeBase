@@ -1,0 +1,104 @@
+{
+  "format": "JokeBase append-only binary lineage v1",
+  "implementation_policy": "Only WebAssembly binaries are implementation artifacts. This manifest contains binary metadata and behavioral capability labels, not implementation source.",
+  "archive_started": "2026-08-11",
+  "history_limit": "The archive begins at the earliest promoted checkpoint still recoverable when append-only preservation was introduced. Earlier experimental binaries are not represented and must not be inferred to be recoverable.",
+  "promotion_policy": {
+    "immutable_promoted_files": true,
+    "content_addressed_names": true,
+    "latest_alias_is_disposable": "JokeBase-v1.wasm",
+    "requirements": [
+      "WebAssembly validation succeeds",
+      "artifact byte length and SHA-256 match this manifest",
+      "declared regression and behavioral campaigns pass",
+      "known unsupported behavior remains explicit",
+      "the parent artifact remains present and unchanged"
+    ]
+  },
+  "artifacts": [
+    {
+      "sequence": 1,
+      "file": "promoted/JokeBase-0001-sha256-886d1874e7f37cd10d4a8d74e4b1477a726f667c85b4ebb6327fee10aefb4c6c.wasm",
+      "bytes": 1009,
+      "sha256": "886d1874e7f37cd10d4a8d74e4b1477a726f667c85b4ebb6327fee10aefb4c6c",
+      "parent_sha256": null,
+      "parent_status": "earliest recoverable promoted checkpoint",
+      "capability_delta": "bounded input-range validation and non-trapping execute ABI on the one-table integer database"
+    },
+    {
+      "sequence": 2,
+      "file": "promoted/JokeBase-0002-sha256-d78ebf89e578bea76c633fa175849af12a5984feac70a68fc7f6df9c43024d52.wasm",
+      "bytes": 1226,
+      "sha256": "d78ebf89e578bea76c633fa175849af12a5984feac70a68fc7f6df9c43024d52",
+      "parent_sha256": "886d1874e7f37cd10d4a8d74e4b1477a726f667c85b4ebb6327fee10aefb4c6c",
+      "capability_delta": "separate materialized result storage and equality-filtered SELECT"
+    },
+    {
+      "sequence": 3,
+      "file": "promoted/JokeBase-0003-sha256-cc958479acb826abdd2f1f5a61b1dcbde53041f89a12a7662a8590781eccd755.wasm",
+      "bytes": 1342,
+      "sha256": "cc958479acb826abdd2f1f5a61b1dcbde53041f89a12a7662a8590781eccd755",
+      "parent_sha256": "d78ebf89e578bea76c633fa175849af12a5984feac70a68fc7f6df9c43024d52",
+      "capability_delta": "SQL-driven all-row UPDATE with signed-i32 values"
+    },
+    {
+      "sequence": 4,
+      "file": "promoted/JokeBase-0004-sha256-04dbca6c0a076144e02f69ebe8d32d4eee998384872b97c3adfbb76ee5f23be9.wasm",
+      "evidence_file": "promoted/JokeBase-0004-evidence.json",
+      "bytes": 1676,
+      "sha256": "04dbca6c0a076144e02f69ebe8d32d4eee998384872b97c3adfbb76ee5f23be9",
+      "parent_sha256": "cc958479acb826abdd2f1f5a61b1dcbde53041f89a12a7662a8590781eccd755",
+      "capability_delta": "signed less-than and greater-than filtered SELECT plus independent three-way partition oracle"
+    },
+    {
+      "sequence": 5,
+      "file": "promoted/JokeBase-0005-sha256-5a42fc13e12adab0807e8f8094c78d1f49be0be0e4f8b0d1a16f3a27e6324790.wasm",
+      "evidence_file": "promoted/JokeBase-0005-evidence.json",
+      "bytes": 2016,
+      "sha256": "5a42fc13e12adab0807e8f8094c78d1f49be0be0e4f8b0d1a16f3a27e6324790",
+      "parent_sha256": "04dbca6c0a076144e02f69ebe8d32d4eee998384872b97c3adfbb76ee5f23be9",
+      "capability_delta": "signed less-than and greater-than DELETE plus SELECT/DELETE DQE-style row-set oracle"
+    },
+    {
+      "sequence": 6,
+      "file": "promoted/JokeBase-0006-sha256-6cdc59ea3e965631f3036c8bf39beb4dbbc871444998ef71f64895f41f2278bb.wasm",
+      "evidence_file": "promoted/JokeBase-0006-evidence.json",
+      "bytes": 2614,
+      "sha256": "6cdc59ea3e965631f3036c8bf39beb4dbbc871444998ef71f64895f41f2278bb",
+      "parent_sha256": "5a42fc13e12adab0807e8f8094c78d1f49be0be0e4f8b0d1a16f3a27e6324790",
+      "capability_delta": "arbitrary-value predicate-qualified UPDATE for signed less-than, equality, and greater-than plus SELECT/UPDATE/DELETE DQE-style oracle"
+    },
+    {
+      "sequence": 7,
+      "file": "promoted/JokeBase-0007-sha256-9d1830dc4799f44bd26c454f71663014f60637e956d26e1b3ddf7532c73d0194.wasm",
+      "evidence_file": "promoted/JokeBase-0007-evidence.json",
+      "bytes": 2974,
+      "sha256": "9d1830dc4799f44bd26c454f71663014f60637e956d26e1b3ddf7532c73d0194",
+      "parent_sha256": "6cdc59ea3e965631f3036c8bf39beb4dbbc871444998ef71f64895f41f2278bb",
+      "capability_delta": "deterministic host-storable binary snapshots and atomic fresh-instance recovery with corrupt-image rejection"
+    },
+    {
+      "sequence": 8,
+      "file": "promoted/JokeBase-0008-sha256-84dfff17ba326bbc10da55717a2ad80869f1d5347f28904211b80ba91b77b1f1.wasm",
+      "evidence_file": "promoted/JokeBase-0008-evidence.json",
+      "bytes": 3773,
+      "sha256": "84dfff17ba326bbc10da55717a2ad80869f1d5347f28904211b80ba91b77b1f1",
+      "parent_sha256": "9d1830dc4799f44bd26c454f71663014f60637e956d26e1b3ddf7532c73d0194",
+      "capability_delta": "explicit NULL storage and result flags, INSERT NULL, IS NULL and IS NOT NULL queries, NULL-aware comparisons/update/delete, and NULL-preserving snapshots"
+    },
+    {
+      "sequence": 9,
+      "file": "promoted/JokeBase-0009-sha256-8bab772889c791c863e31df0606f5354fb6cc9181457cf7424ae9e019b07b892.wasm",
+      "evidence_file": "promoted/JokeBase-0009-evidence.json",
+      "bytes": 4417,
+      "sha256": "8bab772889c791c863e31df0606f5354fb6cc9181457cf7424ae9e019b07b892",
+      "parent_sha256": "84dfff17ba326bbc10da55717a2ad80869f1d5347f28904211b80ba91b77b1f1",
+      "capability_delta": "general scalar signed-i32/NULL literal-list IN and NOT IN evaluator with three-valued semantics and a complete pinned SQLLogicTest expression-family pass"
+    }
+  ],
+  "current_promoted_sha256": "8bab772889c791c863e31df0606f5354fb6cc9181457cf7424ae9e019b07b892",
+  "external_replication": {
+    "status": "not configured",
+    "required_next_step": "replicate the artifacts directory to a versioned remote or independent storage location"
+  }
+}

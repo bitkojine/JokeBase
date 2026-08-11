@@ -1,0 +1,36 @@
+{
+  "status": "promoted as sequence 8",
+  "base_artifact_sha256": "9d1830dc4799f44bd26c454f71663014f60637e956d26e1b3ddf7532c73d0194",
+  "base_sequence": 7,
+  "representation": {
+    "table_values_base": 4096,
+    "table_null_flags_base": 8192,
+    "embedded_sql_base": 12288,
+    "result_values_base": 16384,
+    "result_null_flags_base": 20480,
+    "snapshot_buffer_base": 24576,
+    "null_flag_encoding": "one i32 per row: 0 is a value, 1 is NULL",
+    "sentinel_value": null
+  },
+  "completed_raw_body_replacements": [
+    {"function": 4, "role": "integer insert initializes null flag to 0", "file": "body-fragments/function-04-db-insert.body.bin"},
+    {"function": 11, "role": "equality delete skips NULL and compacts flags", "file": "body-fragments/function-11-delete-eq.body.bin"},
+    {"function": 12, "role": "full scan materializes values and flags", "file": "body-fragments/function-12-select-all.body.bin"},
+    {"function": 13, "role": "equality select skips NULL and emits non-null flags", "file": "body-fragments/function-13-select-eq.body.bin"},
+    {"function": 14, "role": "all-row integer update clears null flags", "file": "body-fragments/function-14-update-all.body.bin"},
+    {"function": 15, "role": "less-than select skips NULL and emits non-null flags", "file": "body-fragments/function-15-select-lt.body.bin"},
+    {"function": 16, "role": "greater-than select skips NULL and emits non-null flags", "file": "body-fragments/function-16-select-gt.body.bin"},
+    {"function": 17, "role": "less-than delete skips NULL and compacts flags", "file": "body-fragments/function-17-delete-lt.body.bin"},
+    {"function": 18, "role": "greater-than delete skips NULL and compacts flags", "file": "body-fragments/function-18-delete-gt.body.bin"},
+    {"function": 20, "role": "less-than integer update skips NULL", "file": "body-fragments/function-20-update-lt.body.bin"},
+    {"function": 21, "role": "equality integer update skips NULL", "file": "body-fragments/function-21-update-eq.body.bin"},
+    {"function": 22, "role": "greater-than integer update skips NULL", "file": "body-fragments/function-22-update-gt.body.bin"}
+  ],
+  "promotion": {
+    "sequence": 8,
+    "sha256": "84dfff17ba326bbc10da55717a2ad80869f1d5347f28904211b80ba91b77b1f1",
+    "evidence": "../promoted/JokeBase-0008-evidence.json",
+    "note": "Earlier comparison fragments were replaced after a stack-ordering defect was found; the files listed above now contain the corrected promoted bodies."
+  },
+  "promotion_allowed": true
+}

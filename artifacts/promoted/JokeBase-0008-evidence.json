@@ -1,0 +1,107 @@
+{
+  "artifact": {
+    "file": "JokeBase-v1.wasm",
+    "format": "WebAssembly MVP binary",
+    "bytes": 3773,
+    "sha256": "84dfff17ba326bbc10da55717a2ad80869f1d5347f28904211b80ba91b77b1f1"
+  },
+  "parent": {
+    "sequence": 7,
+    "sha256": "9d1830dc4799f44bd26c454f71663014f60637e956d26e1b3ddf7532c73d0194"
+  },
+  "capability_profile": {
+    "schema": "one fixed table named t1 with one nullable INTEGER column named x",
+    "row_capacity": 64,
+    "integer_domain": "NULL or signed 32-bit integer",
+    "new_statements": [
+      "INSERT INTO t1 VALUES(NULL)",
+      "SELECT x FROM t1 WHERE x IS NULL",
+      "SELECT x FROM t1 WHERE x IS NOT NULL"
+    ],
+    "retained_statements": [
+      "CREATE TABLE t1(x INTEGER)",
+      "INSERT INTO t1 VALUES(<signed-i32>)",
+      "SELECT x FROM t1",
+      "SELECT x FROM t1 WHERE x < <signed-i32>",
+      "SELECT x FROM t1 WHERE x = <signed-i32>",
+      "SELECT x FROM t1 WHERE x > <signed-i32>",
+      "DELETE FROM t1 WHERE x <, =, or > <signed-i32>",
+      "UPDATE t1 SET x = <signed-i32>",
+      "UPDATE t1 SET x = <signed-i32> WHERE x <, =, or > <signed-i32>"
+    ],
+    "null_semantics": "ordinary comparisons skip NULL; IS NULL and IS NOT NULL materialize the corresponding rows; predicate UPDATE and DELETE skip NULL; an all-row integer UPDATE replaces NULL with the assigned integer",
+    "result_contract": "result_get returns the i32 payload and result_is_null returns 1 for NULL, 0 for an integer, or -4 for an invalid result index",
+    "persistence_contract": "the deterministic snapshot image stores an explicit validated NULL flag beside every row and restores mixed NULL/integer state atomically",
+    "unsupported": [
+      "multiple tables or columns",
+      "arbitrary table and column names",
+      "expressions, projection aliases, ordering, grouping, joins, subqueries, and indexes",
+      "boolean connectives and predicates beyond the exact supported comparison and NULL forms",
+      "UPDATE assignment to NULL",
+      "DELETE with IS NULL or IS NOT NULL",
+      "transactions",
+      "internal filesystem I/O, checksummed images, and crash-during-write recovery",
+      "concurrency"
+    ]
+  },
+  "focused_null_regression": {
+    "status": "PASS",
+    "fixture": ["NULL", -2, 0, "NULL", 5],
+    "verified": [
+      "full scan preserves values, NULL flags, and order",
+      "IS NULL returns exactly the two NULL rows",
+      "IS NOT NULL returns exactly the three integer rows",
+      "signed less-than, equality, and greater-than skip NULL",
+      "DELETE compaction preserves retained NULL flags",
+      "predicate UPDATE skips NULL",
+      "all-row integer UPDATE clears NULL flags",
+      "fresh-instance snapshot recovery preserves mixed state"
+    ]
+  },
+  "generated_null_property_campaign": {
+    "status": "PASS",
+    "deterministic_seeds": 300,
+    "operations": 180006,
+    "assertions": 344324,
+    "tlp_four_way_partitions": 12594,
+    "fresh_instance_snapshot_roundtrips": 12276,
+    "malformed_statement_atomicity_checks": 2100,
+    "oracle": "For every pivot p, the ordered result sets x < p, x = p, x > p, and x IS NULL are pairwise disjoint and recombine to the complete table multiset; every operation also agrees with an independent nullable ordered-list model."
+  },
+  "sqlite_differential_campaign": {
+    "status": "PASS",
+    "reference": "SQLite 3.51.0",
+    "deterministic_seeds": 80,
+    "statements": 8000,
+    "compared_result_lines": 20854,
+    "null_rows_inserted": 775,
+    "compared_behavior": [
+      "mixed NULL/integer insertion",
+      "ordered full scans",
+      "signed comparison filters",
+      "IS NULL and IS NOT NULL filters",
+      "predicate DELETE change counts",
+      "predicate UPDATE change counts"
+    ]
+  },
+  "robustness_campaign": {
+    "status": "PASS",
+    "verified": [
+      "capacity rejection of NULL insertion is atomic",
+      "result_is_null rejects invalid indices",
+      "invalid snapshot NULL flags are rejected without state mutation",
+      "bad snapshot magic and trailing bytes are rejected without state mutation",
+      "invalid execute input ranges return -10 without trapping"
+    ]
+  },
+  "upstream_conformance_claim": {
+    "status": "not yet a meaningful SQLLogicTest suite slice",
+    "currently_verified": "the previously isolated CREATE TABLE statement plus independently generated behavior that is also differential-tested against SQLite",
+    "next_gap": "general expressions, multi-column schemas, and broader SELECT syntax are required for a coherent pinned SQLLogicTest slice"
+  },
+  "promotion": {
+    "sequence": 8,
+    "webassembly_validation": "PASS",
+    "source_free_policy": "Only raw Wasm bytes, binary metadata, runtime behavior, and test data were used; no implementation source, WAT, compiler input, generator file, or decompiled source was created or inspected."
+  }
+}

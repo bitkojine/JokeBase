@@ -8,6 +8,8 @@ The repository's primary research output is not only the binary. [`TOOLS-AND-LEA
 
 For an accurate non-technical explanation of the experiment, its evidence, and its limits, see [`STORY-BRIEF.md`](STORY-BRIEF.md).
 
+Paprastesnis pasakojimas lietuviškai su iliustracija: [`JOKEBASE-PAPRASTAI-LT.md`](JOKEBASE-PAPRASTAI-LT.md).
+
 ## WebAssembly is bytecode, not native machine code
 
 WebAssembly (Wasm) is a portable, low-level bytecode format. A `.wasm` binary does not directly contain the x86-64 or ARM instructions executed by a particular CPU. A host engine such as V8, SpiderMonkey, or Wasmtime validates the module and typically translates it into host-specific native machine code using just-in-time (JIT) or ahead-of-time (AOT) compilation. Ahead-of-time compilation may happen before the module is loaded for execution.

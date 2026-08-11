@@ -159,3 +159,8 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 
 - Preservation action: added `STORY-BRIEF.md`, a non-technical narrative guide grounded in the promoted artifact, public evidence, capability boundary, correction history, and stated limitations.
 - Communication control conclusion: an opaque-artifact project needs an equally precise public story. The brief distinguishes WebAssembly bytecode from native machine code, one pinned test file from whole-suite conformance, evidence from proof, and a real bounded database from a general SQL implementation.
+
+## 2026-08-12 — control record 0017
+
+- Preservation action: added `JOKEBASE-PAPRASTAI-LT.md`, a plain-language Lithuanian explanation, and `assets/jokebase-be-kodo-iliustracija-v1.png`, SHA-256 `afaf3ddb3e1455ff712e32a562622067ed31aecbc6cceb971627357d1932bf77`.
+- Communication control conclusion: the same claim requires different vocabulary for a non-technical audience. The Lithuanian guide avoids calling WebAssembly native machine code, presents exact evidence without implying universal correctness, and treats the experiment's limits as part of the story.

@@ -42,9 +42,9 @@ These descriptions follow the official [WebAssembly specification introduction](
 ## Current artifact
 
 - File: `JokeBase-v1.wasm`
-- Size: 10,723 bytes
-- SHA-256: `0f85e15574d45f49f5689976a2368d8db0d456e94016a761e6db3a8e995ed5c8`
-- Promoted sequence: 17
+- Size: 10,762 bytes
+- SHA-256: `1d238226c11e693980b61527ced25dde91822a56131243f489e51193231491f1`
+- Promoted sequence: 18
 
 The content-addressed copy is preserved under `artifacts/promoted/`. `artifacts/lineage.json` links every retained promoted binary to its parent.
 
@@ -70,11 +70,13 @@ JokeBase currently provides three independent tables, each with capacity for 64 
 - text-literal `IN` and `NOT IN` over text/`NULL` literal lists, with byte-exact comparison and three-valued semantics;
 - deterministic host-storable three-table snapshots with atomic validation and restoration.
 
+The supported embedding interface is versioned in [`ABI.md`](ABI.md). SQL bytes must be staged wholly inside memory addresses `[1024,4096)`, with a maximum length of 3,072 bytes. Sequence 18 rejects every other `execute(ptr,len)` range with `-10` before reading it. Because the linear memory is exported, direct host writes outside that window remain outside the contract and can corrupt module state before JokeBase receives control.
+
 This is not a general SQL implementation. Tables beyond `t1`, `t2`, and `t3`, multiple columns, arbitrary identifiers, stored floating-point/text/blob values, general floating-point/text/cross-table expressions, joins, grouping, ordering, indexes, transactions, internal filesystem I/O, and concurrency remain unsupported. Decimal exponent notation and more than six fractional digits are unsupported. Text literals with embedded quotes are unsupported; text membership against integer `t1` recognizes numeric affinity only for optional-minus integers. `t2` does not yet support NULL rowid allocation, projection, update, or delete; `t3` does not yet support projection, update, or delete. SQL keyword casing is not yet consistently general. The exact contract is recorded in `JokeBase-v1-evidence.json`.
 
 ## External evidence
 
-Sequence 17 passes the first 58 queries in the pinned SQLite SQLLogicTest `in1.test` file contiguously, including literal-list membership, independent `t1`/`t2`/`t3` table-backed membership, cross-table `x+y` membership, decimal membership, text membership with integer affinity, hexadecimal blob membership, and text-literal lists. The next unsupported statement creates `t4`, a fourth table.
+Sequence 18 retains the first 58 queries in the pinned SQLite SQLLogicTest `in1.test` file contiguously, including literal-list membership, independent `t1`/`t2`/`t3` table-backed membership, cross-table `x+y` membership, decimal membership, text membership with integer affinity, hexadecimal blob membership, and text-literal lists. The next unsupported statement creates `t4`, a fourth table.
 
 It also passed:
 
@@ -91,8 +93,13 @@ It also passed:
 - 250 fresh-instance three-table snapshot round trips;
 - 750 corrupt-image atomic rejections;
 - capacity, uniqueness, malformed-input, and non-trapping invalid-range checks.
+- supported-window edge checks plus nine rejected SQL input ranges, with result clearing, no traps, and no state mutation by `execute`.
 
 These results support only the declared capability profile. They do not imply conformance with the complete SQLLogicTest corpus, SQLite, SQLancer, or SQL generally.
+
+### Current reproducibility boundary
+
+The repository independently preserves and makes reproducible the promoted bytes, their SHA-256 lineage, the pinned upstream test inputs, the declarative ABI cases, and the exact capability boundary. The large generated differential and stateful campaign counts are currently recorded evidence, but their executable generators and runners are not yet published. An external reviewer can verify artifact identity and run the declared examples, but cannot yet reproduce every generated counter from repository contents alone. Closing that gap is a promotion-method priority.
 
 ## Developing an opaque database as a feedback-control problem
 

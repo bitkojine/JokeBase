@@ -1,0 +1,54 @@
+{
+  "format": "JokeBase declarative ABI contract cases v1",
+  "artifact_sha256": "1d238226c11e693980b61527ced25dde91822a56131243f489e51193231491f1",
+  "input_window": {
+    "start_inclusive": 1024,
+    "end_exclusive": 4096,
+    "maximum_length": 3072
+  },
+  "supported_cases": [
+    {
+      "pointer": 1024,
+      "sql_utf8": "SELECT 1 IN ()",
+      "execute": 1,
+      "result_count": 1,
+      "result_is_null_0": 0,
+      "result_get_0": 0
+    },
+    {
+      "pointer": 2048,
+      "sql_utf8": "SELECT 1 IN ()",
+      "execute": 1,
+      "result_count": 1,
+      "result_is_null_0": 0,
+      "result_get_0": 0
+    },
+    {
+      "pointer_expression": "4096 - utf8_length(sql_utf8)",
+      "sql_utf8": "SELECT 1 IN ()",
+      "execute": 1,
+      "result_count": 1,
+      "result_is_null_0": 0,
+      "result_get_0": 0
+    }
+  ],
+  "rejected_ranges": [
+    { "pointer": 0, "length": 1 },
+    { "pointer": 512, "length": 1 },
+    { "pointer": 1023, "length": 1 },
+    { "pointer": 4096, "length": 1 },
+    { "pointer": 8192, "length": 1 },
+    { "pointer": 32768, "length": 1 },
+    { "pointer": 65535, "length": 1 },
+    { "pointer": 4090, "length": 7 },
+    { "pointer": 1024, "length": 3073 }
+  ],
+  "rejected_range_expected": {
+    "execute": -10,
+    "result_count": 0,
+    "must_not_trap": true,
+    "must_not_read_rejected_range": true,
+    "module_state_unchanged_by_execute": true
+  },
+  "host_write_warning": "The state guarantee covers execute itself. A host write outside the supported input window occurs before execute and is outside the ABI contract."
+}

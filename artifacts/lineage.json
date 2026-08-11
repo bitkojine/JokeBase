@@ -157,9 +157,18 @@
       "sha256": "4127046db02a4b4a50a2dbff82ad730cb477fa3da082ea7fd70676f74bffd5e0",
       "parent_sha256": "dd536748d9924b939078f9143db819e5e6b5fa3359f3cb3fe8bd856dc6c692b3",
       "capability_delta": "valid hexadecimal blob-literal IN and NOT IN over empty lists and integer t1 rows, with SQLite-compatible type and NULL semantics, plus a 56-query contiguous SQLLogicTest prefix"
+    },
+    {
+      "sequence": 17,
+      "file": "promoted/JokeBase-0017-sha256-0f85e15574d45f49f5689976a2368d8db0d456e94016a761e6db3a8e995ed5c8.wasm",
+      "evidence_file": "promoted/JokeBase-0017-evidence.json",
+      "bytes": 10723,
+      "sha256": "0f85e15574d45f49f5689976a2368d8db0d456e94016a761e6db3a8e995ed5c8",
+      "parent_sha256": "4127046db02a4b4a50a2dbff82ad730cb477fa3da082ea7fd70676f74bffd5e0",
+      "capability_delta": "byte-exact text-literal IN and NOT IN over text and NULL literal lists, with SQLite three-valued semantics and a 58-query contiguous SQLLogicTest prefix"
     }
   ],
-  "current_promoted_sha256": "4127046db02a4b4a50a2dbff82ad730cb477fa3da082ea7fd70676f74bffd5e0",
+  "current_promoted_sha256": "0f85e15574d45f49f5689976a2368d8db0d456e94016a761e6db3a8e995ed5c8",
   "external_replication": {
     "status": "configured and verified",
     "repository": "https://github.com/bitkojine/JokeBase",
@@ -167,7 +176,7 @@
     "branch": "main",
     "first_public_commit": "684433aaedb17417053747fcd5faee4b63e8770d",
     "latest_verified_sequence": 16,
-    "latest_promotion_commit": "6939850811b47641b9388436c96f22b33190d8c6",
-    "verification": "GitHub-served JokeBase-v1.wasm matched current_promoted_sha256"
+    "latest_promotion_commit": null,
+    "verification": "sequence 17 public replication pending"
   }
 }

@@ -1,0 +1,24 @@
+{
+  "status": "promoted as sequence 17",
+  "base_sequence": 16,
+  "base_artifact_sha256": "4127046db02a4b4a50a2dbff82ad730cb477fa3da082ea7fd70676f74bffd5e0",
+  "raw_binary_fragments": [
+    "body-fragments/function-34-fallback.body.bin",
+    "body-fragments/function-40-text-list-membership.body.bin"
+  ],
+  "binary_metadata": {
+    "new_function_index": 40,
+    "function_type_index": 1,
+    "function_count": 41,
+    "snapshot_format_changed": false,
+    "accepted_list_elements": [
+      "unescaped text literals including empty strings",
+      "lowercase null"
+    ]
+  },
+  "promotion": {
+    "sequence": 17,
+    "sha256": "0f85e15574d45f49f5689976a2368d8db0d456e94016a761e6db3a8e995ed5c8",
+    "evidence": "../promoted/JokeBase-0017-evidence.json"
+  }
+}

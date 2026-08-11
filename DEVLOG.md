@@ -147,3 +147,10 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Observed result: the candidate returned `-10`, did not trap, and retained its complete pre-import snapshot byte-for-byte.
 - Compatibility conclusion: the expanded catalog snapshot is intentionally not backward-readable; sequence-18 images are rejected atomically rather than interpreted as the new format.
 - Promotion status: not promoted; this breaking snapshot boundary must be explicit in sequence-19 evidence and ABI documentation.
+
+## 2026-08-12 — control record 0015
+
+- Promotion: sequence 19, 18,438 bytes, SHA-256 `ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b`; parent sequence 18 SHA-256 `1d238226c11e693980b61527ced25dde91822a56131243f489e51193231491f1`.
+- Local promotion commit: `0ef8111aeb68d0c03f0fd658a180c8774f3fb189` on `main`.
+- Publication observation: the public GitHub main branch advanced to that exact commit; a fresh GitHub-served raw `JokeBase-v1.wasm` download hashed to the promoted sequence-19 SHA-256.
+- Promotion status: promoted and publicly replicated.

@@ -193,8 +193,8 @@
     "visibility": "public",
     "branch": "main",
     "first_public_commit": "684433aaedb17417053747fcd5faee4b63e8770d",
-    "latest_verified_sequence": 18,
-    "latest_promotion_commit": "52523d6ab203db7cbb6ddb7890113742c7045eae",
-    "verification": "GitHub-served JokeBase-v1.wasm matched current_promoted_sha256 and enforced the sequence-18 input-window boundary"
+    "latest_verified_sequence": 19,
+    "latest_promotion_commit": "0ef8111aeb68d0c03f0fd658a180c8774f3fb189",
+    "verification": "GitHub-served JokeBase-v1.wasm matched the sequence-19 current_promoted_sha256 after the direct main-branch publication"
   }
 }

@@ -170,3 +170,10 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Preservation action: materialized the promoted sequence-19 TEXT-table differential as `tests/generated/text-catalog-seq19-sqlite-3.51.0.jsonl.gz`: 10,000 records across 100 complete database setups, compressed SHA-256 `af2782eb54b2ab37f68f8d5180f2036502c948e7094a7cd34648122d0060bad6`, uncompressed SHA-256 `7dfce02360c125c2a3aaca3e3a4154c9b200de6fe4d455f36f5969d26b0413bc`.
 - Replay observation: all 10,000 materialized SQLite 3.51.0 expected results replayed against sequence 19 with zero failures; coverage was 5,005 direct-table forms, 4,995 subquery forms, 1,237 uppercase-NULL operands, and 6,791 NULL results.
 - Control conclusion: stateful generated evidence should preserve complete state construction alongside each input; a query alone is not a reproducible database test.
+
+## 2026-08-12 — control record 0019
+
+- End-user black-box trial: exercised promoted sequence 19 exclusively through the public SQL/result/snapshot interface and recorded the observed experience in `END-USER-TRIAL-SEQUENCE-19.md`.
+- Positive observations: mutable integer and bounded TEXT state, unique/primary-key rejection, SQL NULL membership behavior, capacity rejection without state change, declared copy behavior, and host-managed save/restore all worked in ordinary user flows.
+- Friction observations: a host program is required; common multi-column schemas, arbitrary names, table removal, indexes, text projection, counting, sorting, embedded-quote TEXT, and general SQL are unavailable; accepted UPDATE syntax is whitespace-sensitive; errors are numeric codes rather than explanations.
+- Control conclusion: end-user journeys are an independent sensor. Suite passes establish semantic behavior, but only user-shaped trials expose ergonomics and documentation gaps.

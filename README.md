@@ -42,9 +42,9 @@ These descriptions follow the official [WebAssembly specification introduction](
 ## Current artifact
 
 - File: `JokeBase-v1.wasm`
-- Size: 8,782 bytes
-- SHA-256: `31e3382836c81f0b0d712bb920866d9572c9a39cf6d00da19c20f43c78bb5319`
-- Promoted sequence: 14
+- Size: 9,500 bytes
+- SHA-256: `dd536748d9924b939078f9143db819e5e6b5fa3359f3cb3fe8bd856dc6c692b3`
+- Promoted sequence: 15
 
 The content-addressed copy is preserved under `artifacts/promoted/`. `artifacts/lineage.json` links every retained promoted binary to its parent.
 
@@ -65,19 +65,21 @@ JokeBase currently provides three independent tables, each with capacity for 64 
 - multiple `NULL` rows, unique non-`NULL` signed integers, and state-dependent membership for `t3`;
 - `IN` and `NOT IN` over the populated cross-table expression `SELECT x+y FROM t1,t2`, with NULL propagation and signed-overflow-safe comparisons;
 - signed decimal-literal `IN` and `NOT IN` against empty lists and integer `t1`, with one to six fractional digits and NULL-aware semantics;
+- ordinary ASCII and signed-integer text-literal membership against empty lists and integer `t1`, including SQLite-compatible integer affinity;
 - deterministic host-storable three-table snapshots with atomic validation and restoration.
 
-This is not a general SQL implementation. Tables beyond `t1`, `t2`, and `t3`, multiple columns, arbitrary identifiers, stored floating-point/text/blob values, general floating-point and cross-table expressions, joins, grouping, ordering, indexes, transactions, internal filesystem I/O, and concurrency remain unsupported. Decimal exponent notation and more than six fractional digits are unsupported. `t2` does not yet support NULL rowid allocation, projection, update, or delete; `t3` does not yet support projection, update, or delete. SQL keyword casing is not yet consistently general. The exact contract is recorded in `JokeBase-v1-evidence.json`.
+This is not a general SQL implementation. Tables beyond `t1`, `t2`, and `t3`, multiple columns, arbitrary identifiers, stored floating-point/text/blob values, general floating-point/text/cross-table expressions, joins, grouping, ordering, indexes, transactions, internal filesystem I/O, and concurrency remain unsupported. Decimal exponent notation and more than six fractional digits are unsupported. Text literals with embedded quotes and numeric-looking forms other than optional-minus integers are unsupported. `t2` does not yet support NULL rowid allocation, projection, update, or delete; `t3` does not yet support projection, update, or delete. SQL keyword casing is not yet consistently general. The exact contract is recorded in `JokeBase-v1-evidence.json`.
 
 ## External evidence
 
-Sequence 14 passes the first 42 queries in the pinned SQLite SQLLogicTest `in1.test` file contiguously, including literal-list membership, independent `t1`/`t2`/`t3` table-backed membership, cross-table `x+y` membership, and decimal membership against integer rows. The next unsupported query uses a text literal.
+Sequence 15 passes the first 48 queries in the pinned SQLite SQLLogicTest `in1.test` file contiguously, including literal-list membership, independent `t1`/`t2`/`t3` table-backed membership, cross-table `x+y` membership, decimal membership, and text membership with integer affinity. The next unsupported query uses a blob literal.
 
 It also passed:
 
 - 30,000 generated three-table membership comparisons against SQLite 3.53.3;
 - 50,000 generated cross-table-sum membership comparisons against SQLite 3.53.3, including 3,031 overflowing row pairs;
 - 50,000 generated decimal-membership comparisons against SQLite 3.53.3;
+- 50,000 generated text-membership comparisons against SQLite 3.53.3;
 - 52,500 stateful nullable-database regression operations;
 - 220,589 independent model checks;
 - 52,500 four-way NULL partitions;

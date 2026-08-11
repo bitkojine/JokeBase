@@ -121,9 +121,18 @@
       "sha256": "13884540774047410c44bc39952b2647d02cd1e79074bb40105cba9579ac9aec",
       "parent_sha256": "ffaf8b3462caf3219e9b1e147bdfff8fef542c056c899ebd84706a28301ff3a7",
       "capability_delta": "independent nullable t3 INTEGER UNIQUE state, multiple NULLs, unique non-NULL insertion, membership, reset, and atomic three-table snapshot version 3 with a 32-query contiguous SQLLogicTest prefix"
+    },
+    {
+      "sequence": 13,
+      "file": "promoted/JokeBase-0013-sha256-9574030eecd603af64986df52b246003d7294b1c59c7a60daeafbb4e5789658b.wasm",
+      "evidence_file": "promoted/JokeBase-0013-evidence.json",
+      "bytes": 8070,
+      "sha256": "9574030eecd603af64986df52b246003d7294b1c59c7a60daeafbb4e5789658b",
+      "parent_sha256": "13884540774047410c44bc39952b2647d02cd1e79074bb40105cba9579ac9aec",
+      "capability_delta": "state-dependent NULL-aware IN and NOT IN over the populated t1 by t2 x+y product, with signed-overflow-safe comparison and a 36-query contiguous SQLLogicTest prefix"
     }
   ],
-  "current_promoted_sha256": "13884540774047410c44bc39952b2647d02cd1e79074bb40105cba9579ac9aec",
+  "current_promoted_sha256": "9574030eecd603af64986df52b246003d7294b1c59c7a60daeafbb4e5789658b",
   "external_replication": {
     "status": "configured and verified",
     "repository": "https://github.com/bitkojine/JokeBase",

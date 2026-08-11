@@ -42,9 +42,9 @@ These descriptions follow the official [WebAssembly specification introduction](
 ## Current artifact
 
 - File: `JokeBase-v1.wasm`
-- Size: 7,372 bytes
-- SHA-256: `13884540774047410c44bc39952b2647d02cd1e79074bb40105cba9579ac9aec`
-- Promoted sequence: 12
+- Size: 8,070 bytes
+- SHA-256: `9574030eecd603af64986df52b246003d7294b1c59c7a60daeafbb4e5789658b`
+- Promoted sequence: 13
 
 The content-addressed copy is preserved under `artifacts/promoted/`. `artifacts/lineage.json` links every retained promoted binary to its parent.
 
@@ -63,17 +63,19 @@ JokeBase currently provides three independent tables, each with capacity for 64 
 - state-dependent signed-integer/`NULL` `IN` and `NOT IN` over `t1` or `SELECT * FROM t1`;
 - explicit unique insertion and state-dependent membership for `t2`;
 - multiple `NULL` rows, unique non-`NULL` signed integers, and state-dependent membership for `t3`;
+- `IN` and `NOT IN` over the populated cross-table expression `SELECT x+y FROM t1,t2`, with NULL propagation and signed-overflow-safe comparisons;
 - deterministic host-storable three-table snapshots with atomic validation and restoration.
 
-This is not a general SQL implementation. Tables beyond `t1`, `t2`, and `t3`, multiple columns, arbitrary identifiers, strings, cross-table expressions, joins, grouping, ordering, indexes, transactions, internal filesystem I/O, and concurrency remain unsupported. `t2` does not yet support NULL rowid allocation, projection, update, or delete; `t3` does not yet support projection, update, or delete. SQL keyword casing is not yet consistently general. The exact contract is recorded in `JokeBase-v1-evidence.json`.
+This is not a general SQL implementation. Tables beyond `t1`, `t2`, and `t3`, multiple columns, arbitrary identifiers, floating-point/text/blob values, general cross-table expressions, joins, grouping, ordering, indexes, transactions, internal filesystem I/O, and concurrency remain unsupported. `t2` does not yet support NULL rowid allocation, projection, update, or delete; `t3` does not yet support projection, update, or delete. SQL keyword casing is not yet consistently general. The exact contract is recorded in `JokeBase-v1-evidence.json`.
 
 ## External evidence
 
-Sequence 12 passes the first 32 queries in the pinned SQLite SQLLogicTest `in1.test` file contiguously, including literal-list membership and independent `t1`/`t2`/`t3` table-backed membership. The next unsupported query computes a cross-table `x+y` subquery over `t1` and `t2`.
+Sequence 13 passes the first 36 queries in the pinned SQLite SQLLogicTest `in1.test` file contiguously, including literal-list membership, independent `t1`/`t2`/`t3` table-backed membership, and cross-table `x+y` membership. The next unsupported query uses a floating-point literal.
 
 It also passed:
 
 - 30,000 generated three-table membership comparisons against SQLite 3.53.3;
+- 50,000 generated cross-table-sum membership comparisons against SQLite 3.53.3, including 3,031 overflowing row pairs;
 - 52,500 stateful nullable-database regression operations;
 - 220,589 independent model checks;
 - 52,500 four-way NULL partitions;

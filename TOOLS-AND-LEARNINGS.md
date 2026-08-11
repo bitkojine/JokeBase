@@ -217,6 +217,30 @@ Raw-byte work becomes harder when the intended effect, actual byte change, and m
 
 `DEVLOG.md` is the append-only flight log for these facts. Earlier entries are never cleaned up after a later diagnosis; a correction is a new record. This preserves failed hypotheses and makes control quality auditable instead of reconstructing a success narrative after the fact.
 
+### 19. Signed LEB128 makes familiar positive constants non-obvious
+
+WebAssembly instruction immediates are not all unsigned byte values. A one-byte signed LEB128 encoding whose sign bit is set can represent a negative number even when the raw byte looks like a familiar positive boundary. A planned capacity constant of 64 was encoded in one byte and decoded as negative 64, allowing a 65th row through the intended guard.
+
+Constants at signed-encoding boundaries now require direct below/at/above behavioral probes. Reading the intended decimal value from a raw byte is not evidence of the value the engine decodes.
+
+### 20. Parser controllers interfere unless observation points are narrow
+
+Several independently correct query helpers failed when composed because an earlier dispatcher claimed syntax intended for a later one. NULL-left TEXT lists were especially hazardous: a broad observer could repair one case while stealing integer-table or scalar-list queries.
+
+The reliable pattern is to place the smallest possible observer immediately before the controller it must override, give it private state, and prove that unrelated syntax still traverses the original chain. Complete-suite replays are the outer-loop sensor for cross-controller interference.
+
+### 21. Generated tests need coverage telemetry
+
+A deterministic test run can be repeatable and still be badly distributed. Selecting several dimensions from the low bits of a linear congruential stream produced correlated choices: almost every query followed the same combinations, despite a nominally large case count.
+
+The campaign was rejected, its signal generator changed, and the rerun reported counts for NULL outcomes, keyword casing, direct-table syntax, and subquery syntax. Generated-case totals without dimension totals are weak evidence.
+
+### 22. Evidence belongs to an exact artifact hash
+
+It is tempting to carry a passing persistence campaign forward when later changes appear confined to query dispatch. That relies on an implementation argument nobody is permitted to inspect and ignores accidental binary interference.
+
+The full snapshot round-trip, 12,421 wrong-length cases, 523 semantic and structural corruptions, and header mutations were therefore rerun against the exact same hash that passed the complete pinned upstream file. Promotion gates attach to bytes, not to confidence that a region was probably unchanged.
+
 ## Failed experiments are retained knowledge
 
 WIP manifests may describe rejected candidates when the failure teaches something reusable. A rejected entry should include:

@@ -47,6 +47,7 @@
     "pinned_suite_failures": 0,
     "snapshot_wrong_length_cases": 12421,
     "snapshot_text_corruption_cases": 523,
+    "materialized_text_list_regression_cases": 50000,
     "sqlite_differential_cases": 10000,
     "stateful_model_operations": 40000
   },

@@ -44,15 +44,15 @@ These descriptions follow the official [WebAssembly specification introduction](
 ## Current artifact
 
 - File: `JokeBase-v1.wasm`
-- Size: 10,762 bytes
-- SHA-256: `1d238226c11e693980b61527ced25dde91822a56131243f489e51193231491f1`
-- Promoted sequence: 18
+- Size: 18,438 bytes
+- SHA-256: `ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b`
+- Promoted sequence: 19
 
 The content-addressed copy is preserved under `artifacts/promoted/`. `artifacts/lineage.json` links every retained promoted binary to its parent.
 
 ## Current capability boundary
 
-JokeBase currently provides three independent tables, each with capacity for 64 rows: nullable `t1(x INTEGER)`, explicit-key `t2(y INTEGER PRIMARY KEY)`, and nullable-unique `t3(z INTEGER UNIQUE)`. Its SQL interface supports:
+JokeBase currently provides twelve bounded one-column table identities, each with capacity for 64 rows: the earlier `t1`, `t2`, and `t3`; integer catalog tables `t4`, `t5`, `t6`, `t4n`, and `t6n`; and TEXT catalog tables `t7`, `t8`, `t7n`, and `t8n`. Stored TEXT values are bounded to 32 unescaped UTF-8 bytes. Its SQL interface supports:
 
 - table creation;
 - integer and `NULL` insertion;
@@ -70,22 +70,32 @@ JokeBase currently provides three independent tables, each with capacity for 64 
 - ordinary ASCII and signed-integer text-literal membership against empty lists and integer `t1`, including SQLite-compatible integer affinity;
 - valid hexadecimal blob-literal membership against empty lists and integer `t1`, with SQLite-compatible type and NULL semantics;
 - text-literal `IN` and `NOT IN` over text/`NULL` literal lists, with byte-exact comparison and three-valued semantics;
-- deterministic host-storable three-table snapshots with atomic validation and restoration.
+- exact catalog schema creation and arbitrary bounded integer/TEXT insertion for the declared table identities;
+- unique, primary-key, nonunique, and nullable-unique row constraints with stable capacity and duplicate errors;
+- the declared `INSERT ... SELECT` copies used by the pinned suite, validated before mutation;
+- direct-table and `SELECT *` subquery membership over the integer and TEXT catalogs with SQL three-valued semantics;
+- deterministic host-storable snapshots of all twelve tables with structural and semantic validation before atomic restoration.
 
-The supported embedding interface is versioned in [`ABI.md`](ABI.md). SQL bytes must be staged wholly inside memory addresses `[1024,4096)`, with a maximum length of 3,072 bytes. Sequence 18 rejects every other `execute(ptr,len)` range with `-10` before reading it. Because the linear memory is exported, direct host writes outside that window remain outside the contract and can corrupt module state before JokeBase receives control.
+The supported embedding interface is versioned in [`ABI.md`](ABI.md). SQL bytes must be staged wholly inside memory addresses `[1024,4096)`, with a maximum length of 3,072 bytes. Sequence 19 rejects every other `execute(ptr,len)` range with `-10` before reading it. Because the linear memory is exported, direct host writes outside that window remain outside the contract and can corrupt module state before JokeBase receives control.
 
 Snapshot restoration uses `db_snapshot_read(len)`: the host places the image at the fixed address returned by `db_snapshot_ptr()` and supplies only its length. An earlier revision of `ABI.md` incorrectly documented a caller-selected pointer parameter. The binary always had the one-parameter export; `tests/snapshot-abi-contract-v1.json` preserves the correction probe and atomic short-image rejection result.
 
-This is not a general SQL implementation. Tables beyond `t1`, `t2`, and `t3`, multiple columns, arbitrary identifiers, stored floating-point/text/blob values, general floating-point/text/cross-table expressions, joins, grouping, ordering, indexes, transactions, internal filesystem I/O, and concurrency remain unsupported. Decimal exponent notation and more than six fractional digits are unsupported. Text literals with embedded quotes are unsupported; text membership against integer `t1` recognizes numeric affinity only for optional-minus integers. `t2` does not yet support NULL rowid allocation, projection, update, or delete; `t3` does not yet support projection, update, or delete. SQL keyword casing is not yet consistently general. The exact contract is recorded in `JokeBase-v1-evidence.json`.
+This is not a general SQL implementation. Tables beyond the twelve declared identities, multiple columns, arbitrary identifiers or schemas, stored floating-point/blob values, general projection of catalog rows, joins, grouping, ordering, indexes, transactions, internal filesystem I/O, and concurrency remain unsupported. Stored TEXT is limited to 32 unescaped UTF-8 bytes; embedded quote escapes are unsupported. Decimal exponent notation and more than six fractional digits are unsupported. Text membership against integer `t1` recognizes numeric affinity only for optional-minus integers. `t2` and the newer catalogs do not implement general update/delete/projection families. SQL keyword casing and whitespace are not consistently general outside the tested grammar. Sequence-18 snapshots are intentionally rejected by sequence 19 because the catalog snapshot format changed. The exact contract is recorded in `JokeBase-v1-evidence.json`.
 
 ## External evidence
 
-Sequence 18 retains the first 58 queries in the pinned SQLite-hosted SQLLogicTest `in1.test` file contiguously, including literal-list membership, independent `t1`/`t2`/`t3` table-backed membership, cross-table `x+y` membership, decimal membership, text membership with integer affinity, hexadecimal blob membership, and text-literal lists. The next unsupported statement creates `t4`, a fourth table.
+Sequence 19 executes the complete pinned SQLite-hosted SQLLogicTest `in1.test` file: all 27 SQLite-enabled setup statements and all 187 SQLite-enabled queries through final line 1155 passed with zero failures. This is a claim about that exact pinned file, not the wider SQLLogicTest corpus.
 
 The three pinned suite files were re-fetched from the official [SQLite SQLLogicTest repository](https://www.sqlite.org/sqllogictest/) and compared byte-for-byte on 2026-08-11. `tests/upstream/provenance.json` records every official raw URL, upstream path, retrieval validator, byte count, and SHA-256. The upstream copyright/license notice is preserved alongside the files.
 
 It also passed:
 
+- 10,000 generated TEXT-table membership comparisons against SQLite 3.51.0 across 100 generated database states;
+- 40,000 generated model-based TEXT state operations, including insertion, atomic table copy, membership, reset, snapshots, and malformed input;
+- an exact replay of the existing 50,000-record materialized SQLite text-list corpus;
+- 12,421 wrong-length snapshot rejections, 523 hostile TEXT snapshot corruptions, and five header corruptions with zero traps and zero atomicity failures;
+- focused 64-row capacity, uniqueness, NULL, error-precedence, and rejected-copy atomicity checks for the new catalogs;
+- atomic rejection of a valid sequence-18 snapshot by sequence 19;
 - 30,000 generated three-table membership comparisons against SQLite 3.53.3;
 - 50,000 generated cross-table-sum membership comparisons against SQLite 3.53.3, including 3,031 overflowing row pairs;
 - 50,000 generated decimal-membership comparisons against SQLite 3.53.3;
@@ -101,7 +111,7 @@ It also passed:
 - capacity, uniqueness, malformed-input, and non-trapping invalid-range checks.
 - supported-window edge checks plus nine rejected SQL input ranges, with result clearing, no traps, and no state mutation by `execute`.
 
-These results support only the declared capability profile. They do not imply conformance with the complete SQLLogicTest corpus, SQLite, SQLancer, or SQL generally.
+These results support only the declared capability profile. Passing one complete pinned SQLLogicTest file does not imply conformance with the complete SQLLogicTest corpus, SQLite, SQLancer, or SQL generally.
 
 ### Current reproducibility boundary
 

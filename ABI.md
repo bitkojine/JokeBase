@@ -1,6 +1,6 @@
 # JokeBase embedding ABI
 
-This document describes the supported host contract for promoted JokeBase sequence 18. It is an interface specification, not an implementation representation.
+This document describes the supported host contract for promoted JokeBase sequence 19. It is an interface specification, not an implementation representation.
 
 ## Instantiation
 
@@ -63,7 +63,9 @@ JokeBase snapshots are deterministic binary images managed by the host:
 
 The host copies snapshot bytes out after `db_snapshot_write`, and copies them back to the address returned by `db_snapshot_ptr()` before calling `db_snapshot_read(len)`. The read function does not accept a caller-selected pointer. A rejected image leaves JokeBase state unchanged.
 
-The earlier public revision of this document incorrectly described `db_snapshot_read` as a two-parameter function. The promoted sequence-18 binary has always exported the one-parameter function documented above; this was a documentation defect, not a binary ABI change. The behavioral correction evidence is recorded in `tests/snapshot-abi-contract-v1.json`.
+The earlier public revision of this document incorrectly described `db_snapshot_read` as a two-parameter function. The promoted binaries have always exported the one-parameter function documented above; this was a documentation defect, not a binary ABI change. The behavioral correction evidence for sequence 18 is recorded in `tests/snapshot-abi-contract-v1.json`.
+
+Sequence 19 expands the snapshot image to include the bounded integer and TEXT catalogs and advances the snapshot format identity. Snapshots written by sequence 18 and earlier are not accepted by sequence 19. A rejected earlier-format image returns `-10` and leaves the complete sequence-19 state unchanged. Hosts must treat snapshot bytes as version-bound opaque images and retain the exact JokeBase artifact needed to restore an older image.
 
 This is host-managed snapshot persistence, not filesystem durability. JokeBase does not provide filesystem access, `fsync`, write-ahead logging, crash-safe host storage, or concurrent transactions.
 

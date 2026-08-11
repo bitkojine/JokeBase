@@ -122,3 +122,28 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Stateful model campaign: 40,000 operations with zero failures and zero traps—14,671 inserts, 4,026 atomic table copies, 11,994 modeled membership queries, 4,939 snapshot/save-or-restore operations, 2,363 reset-and-recreate cycles, and 2,007 malformed-statement atomicity probes.
 - Control conclusion: deterministic generation is insufficient by itself; generated campaigns need measured dimension coverage so defects in the test signal are observable.
 - Promotion status: not promoted; raw-fragment preservation and complete release-evidence audit remain open.
+
+## 2026-08-12 — control record 0012
+
+- Artifact under test: 18,438 bytes; SHA-256 `ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b`.
+- Regression corpus: `tests/generated/text-list-seq17-sqlite-3.53.3.jsonl.gz`; compressed SHA-256 `e5ca0679ae89dc5e9594a8d9a59bee6f612bd486bfff281c0abfcd324aa7d1a8`; uncompressed SHA-256 `b3badf8c446d367acf12d036d0baa42036ff8067a382f9e6d9e8626f4dcbaa91`.
+- Exact replay result: all 50,000 materialized SQLite-expected records passed with zero failures.
+- Preservation action: the complete candidate and 20 exact raw body/data fragments were retained under `artifacts/wip-text-catalog/` with byte lengths and SHA-256 identities in its manifest.
+- Control conclusion: a materialized prior corpus is a valuable regression sensor when new dispatch logic touches the same syntax family.
+- Promotion status: not promoted; final ABI, capability-boundary, and release-evidence audit remain open.
+
+## 2026-08-12 — control record 0013
+
+- Artifact under test: 18,438 bytes; SHA-256 `ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b`.
+- SQL staging-window replay: three supported boundary placements and all nine declared rejected ranges passed; rejected ranges cleared results, did not trap, and left the complete snapshot state unchanged.
+- Focused bounded-state replay: all four TEXT tables accepted rows through capacity 64, rejected row 65 with `-3`, and preserved state atomically; both unique TEXT tables rejected pre-capacity duplicate non-NULL values with `-5`; full-capacity `-3` retained precedence over duplicate `-5`.
+- Nullable-unique observation: both lowercase and uppercase NULL insertions were accepted multiple times in each unique TEXT table.
+- Control conclusion: broad stateful campaigns are supplemented by exact boundary/error-precedence probes because random histories may not isolate the required ordering.
+- Promotion status: not promoted; documentation and evidence must be reconciled with the candidate before release.
+
+## 2026-08-12 — control record 0014
+
+- Compatibility intervention: produced a valid 36-byte snapshot from promoted sequence 18 containing legacy row 91, then supplied it to the 18,438-byte candidate while the candidate held independent row 73.
+- Observed result: the candidate returned `-10`, did not trap, and retained its complete pre-import snapshot byte-for-byte.
+- Compatibility conclusion: the expanded catalog snapshot is intentionally not backward-readable; sequence-18 images are rejected atomically rather than interpreted as the new format.
+- Promotion status: not promoted; this breaking snapshot boundary must be explicit in sequence-19 evidence and ABI documentation.

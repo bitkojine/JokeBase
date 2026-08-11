@@ -121,7 +121,7 @@ These results support only the declared capability profile. Passing one complete
 
 The repository independently preserves and makes reproducible the promoted bytes, their SHA-256 lineage, the pinned upstream test inputs, the declarative ABI cases, and the exact capability boundary. It now also preserves the complete 50,000-record text-list differential corpus under `tests/generated/`, including every SQL input, SQLite expected result, deterministic compressed and uncompressed hash, and replay totals.
 
-The remaining generated differential, stateful, and snapshot campaign counts are recorded evidence, but their complete inputs or executable runners are not yet published. An external reviewer can reproduce the latest text-list corpus but cannot yet reproduce every historical counter from repository contents alone. Closing that remaining gap is a promotion-method priority.
+The repository now also preserves the complete 10,000-record sequence-19 TEXT-table differential corpus, including each database setup, query, SQLite expected result, and compressed/uncompressed hash. The remaining generated differential, stateful, and snapshot campaign counts are recorded evidence, but their complete inputs or executable runners are not yet published. An external reviewer can reproduce these two materialized corpora but cannot yet reproduce every historical counter from repository contents alone. Closing that remaining gap is a promotion-method priority.
 
 ## Developing an opaque database as a feedback-control problem
 

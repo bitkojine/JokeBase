@@ -48,6 +48,16 @@
     "failures": 0,
     "test_controller_correction": "A first deterministic generator was rejected after coverage counters exposed low-bit correlations; the accepted campaign used a deterministic xorshift stream."
   },
+  "materialized_text_catalog_differential": {
+    "status": "PASS",
+    "manifest": "tests/generated/text-catalog-seq19-manifest.json",
+    "compressed_file": "tests/generated/text-catalog-seq19-sqlite-3.51.0.jsonl.gz",
+    "records": 10000,
+    "compressed_sha256": "af2782eb54b2ab37f68f8d5180f2036502c948e7094a7cd34648122d0060bad6",
+    "uncompressed_sha256": "7dfce02360c125c2a3aaca3e3a4154c9b200de6fe4d455f36f5969d26b0413bc",
+    "sqlite_reference": "SQLite 3.51.0",
+    "jokebase_sequence_19_replay": "PASS: 10000 of 10000"
+  },
   "text_catalog_stateful_model": {
     "status": "PASS",
     "deterministic_seed": "0x53544154",

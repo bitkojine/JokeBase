@@ -1,0 +1,37 @@
+{
+  "format": "JokeBase materialized stateful differential corpus manifest v1",
+  "corpus": {
+    "file": "text-catalog-seq19-sqlite-3.51.0.jsonl.gz",
+    "compression": "gzip with deterministic timestamp",
+    "records": 10000,
+    "uncompressed_bytes": 11167573,
+    "compressed_bytes": 141424,
+    "uncompressed_sha256": "7dfce02360c125c2a3aaca3e3a4154c9b200de6fe4d455f36f5969d26b0413bc",
+    "compressed_sha256": "af2782eb54b2ab37f68f8d5180f2036502c948e7094a7cd34648122d0060bad6"
+  },
+  "record_schema": {
+    "id": "contiguous integer from 0 through 9999",
+    "database": "integer from 0 through 99; all records for one database are contiguous",
+    "setup": "complete ordered SQL statement array used to construct that database state from an empty instance",
+    "sql": "complete UTF-8 scalar membership SELECT statement",
+    "expected": "SQLite scalar result: 0, 1, or null"
+  },
+  "generation_identity": {
+    "prng": "xorshift32",
+    "initial_state": "unsigned-32-bit value 0x4a6f6b65",
+    "database_states": 100,
+    "records_per_database": 100,
+    "reference": "SQLite 3.51.0 command-line shell"
+  },
+  "coverage_totals": {
+    "direct_table_forms": 5005,
+    "subquery_forms": 4995,
+    "uppercase_null_operands": 1237,
+    "null_results": 6791
+  },
+  "replay": {
+    "jokebase_sequence_19": "PASS: all 10000 expected results reproduced",
+    "jokebase_artifact_sha256": "ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b"
+  },
+  "scope": "This corpus materializes the sequence-19 TEXT-table differential states, queries, and SQLite expected outputs. It does not claim coverage of unsupported SQL grammar or independent runtime engines."
+}

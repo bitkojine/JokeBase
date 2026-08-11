@@ -164,3 +164,9 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 
 - Preservation action: added `JOKEBASE-PAPRASTAI-LT.md`, a plain-language Lithuanian explanation, and `assets/jokebase-be-kodo-iliustracija-v1.png`, SHA-256 `afaf3ddb3e1455ff712e32a562622067ed31aecbc6cceb971627357d1932bf77`.
 - Communication control conclusion: the same claim requires different vocabulary for a non-technical audience. The Lithuanian guide avoids calling WebAssembly native machine code, presents exact evidence without implying universal correctness, and treats the experiment's limits as part of the story.
+
+## 2026-08-12 — control record 0018
+
+- Preservation action: materialized the promoted sequence-19 TEXT-table differential as `tests/generated/text-catalog-seq19-sqlite-3.51.0.jsonl.gz`: 10,000 records across 100 complete database setups, compressed SHA-256 `af2782eb54b2ab37f68f8d5180f2036502c948e7094a7cd34648122d0060bad6`, uncompressed SHA-256 `7dfce02360c125c2a3aaca3e3a4154c9b200de6fe4d455f36f5969d26b0413bc`.
+- Replay observation: all 10,000 materialized SQLite 3.51.0 expected results replayed against sequence 19 with zero failures; coverage was 5,005 direct-table forms, 4,995 subquery forms, 1,237 uppercase-NULL operands, and 6,791 NULL results.
+- Control conclusion: stateful generated evidence should preserve complete state construction alongside each input; a query alone is not a reproducible database test.

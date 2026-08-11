@@ -59,9 +59,11 @@ JokeBase snapshots are deterministic binary images managed by the host:
 - `db_snapshot_ptr() -> i32` returns the module-owned snapshot buffer address;
 - `db_snapshot_size() -> i32` returns the exact image length for current state;
 - `db_snapshot_write() -> i32` writes the image and returns its length;
-- `db_snapshot_read(ptr, len) -> i32` atomically validates and restores an image.
+- `db_snapshot_read(len) -> i32` atomically validates and restores an image from the module-owned snapshot buffer.
 
-The host copies snapshot bytes out after `db_snapshot_write`, and copies them back to the advertised snapshot buffer before `db_snapshot_read`. A rejected image leaves JokeBase state unchanged.
+The host copies snapshot bytes out after `db_snapshot_write`, and copies them back to the address returned by `db_snapshot_ptr()` before calling `db_snapshot_read(len)`. The read function does not accept a caller-selected pointer. A rejected image leaves JokeBase state unchanged.
+
+The earlier public revision of this document incorrectly described `db_snapshot_read` as a two-parameter function. The promoted sequence-18 binary has always exported the one-parameter function documented above; this was a documentation defect, not a binary ABI change. The behavioral correction evidence is recorded in `tests/snapshot-abi-contract-v1.json`.
 
 This is host-managed snapshot persistence, not filesystem durability. JokeBase does not provide filesystem access, `fsync`, write-ahead logging, crash-safe host storage, or concurrent transactions.
 

@@ -1,0 +1,378 @@
+{
+  "format": "JokeBase source-free raw-body work checkpoint v1",
+  "status": "INCOMPLETE_NOT_PROMOTABLE",
+  "base_artifact": {
+    "sequence": 18,
+    "sha256": "1d238226c11e693980b61527ced25dde91822a56131243f489e51193231491f1",
+    "bytes": 10762
+  },
+  "objective": "Establish bounded storage, deterministic reset, complete snapshot coverage, SQL constraint preservation, and membership semantics for the five additional integer tables required by the next pinned SQLLogicTest setup boundary.",
+  "catalog_layout": {
+    "start_inclusive": 30720,
+    "end_exclusive": 34368,
+    "bytes": 3648,
+    "table_slots": 5,
+    "rows_per_table": 64,
+    "metadata_start": 30720,
+    "integer_values_start": 32768,
+    "null_flags_start": 34048
+  },
+  "snapshot_layout_change": {
+    "old_buffer_address": 24576,
+    "candidate_buffer_address": 49152,
+    "catalog_suffix_bytes": 3648,
+    "empty_snapshot_bytes": 3676,
+    "one_t1_row_snapshot_bytes": 3684
+  },
+  "body_fragments": [
+    {
+      "function_index": 2,
+      "purpose": "reset existing mutable globals and clear every catalog byte",
+      "file": "body-fragments/function-02-reset.body.bin",
+      "bytes": 73,
+      "sha256": "710f383ee639efc299b2597743fc065292dda93c80e70cf713daf9866e807c0a"
+    },
+    {
+      "function_index": 23,
+      "purpose": "return the non-overlapping candidate snapshot buffer address",
+      "file": "body-fragments/function-23-snapshot-ptr.body.bin",
+      "bytes": 7,
+      "sha256": "d13a1bd2e1773d9834a7c638a18aaeeb64c86883b912a67f6a25d11fbdccc50a"
+    },
+    {
+      "function_index": 24,
+      "purpose": "add the fixed catalog image length to the version-3 dynamic snapshot size",
+      "file": "body-fragments/function-24-snapshot-size.body.bin",
+      "bytes": 21,
+      "sha256": "9435724b39d76e724589aacdc8e3043941fa58e3d7b93f6464a90bdfb4a61db6"
+    },
+    {
+      "function_index": 25,
+      "purpose": "write the relocated legacy snapshot followed by an exact catalog image",
+      "file": "body-fragments/function-25-snapshot-write.body.bin",
+      "bytes": 396,
+      "sha256": "44f4eb7b0f4db2dc0f5123f87ccece68d53b809f1fc3a44ef6cc2f14bfb84b9e"
+    },
+    {
+      "function_index": 26,
+      "purpose": "validate the complete relocated image before atomically restoring legacy state and the fixed catalog",
+      "file": "body-fragments/function-26-snapshot-read.body.bin",
+      "bytes": 891,
+      "sha256": "862f9c599c808e734c12903cee50ad616eb0378a651aac0d7ff1d26b5729dcbc"
+    },
+    {
+      "function_index": 26,
+      "purpose": "retain complete structural validation and reject snapshots that violate catalog uniqueness or primary-key NULL invariants before any state mutation",
+      "file": "body-fragments/function-26-snapshot-read-unique.body.bin",
+      "bytes": 901,
+      "sha256": "6c54a382c54f79aa6b1b2abd5c4322039211c0f495f8be99bdf5e98ab29ecf48"
+    },
+    {
+      "function_index": 34,
+      "purpose": "preserve the existing fallback chain and dispatch unrecognized sequence-18 SQL to the catalog helper",
+      "file": "body-fragments/function-34-fallback.body.bin",
+      "bytes": 383,
+      "sha256": "9d34d62ccf927071fea7c1b73c94985d4c7160ac04e1f6039a9683fdfb9fa691"
+    },
+    {
+      "function_index": 41,
+      "purpose": "recognize the five exact pinned integer catalog schemas and create independent empty table slots",
+      "file": "body-fragments/function-41-catalog-create.body.bin",
+      "bytes": 271,
+      "sha256": "fbd71bafaa3c82513cb690eebcadde1640f512bfc08b4f9a056959db15cc6767"
+    },
+    {
+      "function_index": 41,
+      "purpose": "retain catalog creation and delegate unrecognized SQL to the generic catalog insertion helper",
+      "file": "body-fragments/function-41-catalog-create-fallback.body.bin",
+      "bytes": 275,
+      "sha256": "d433407485915125b73092cf235ed41dd551ac00364fe1b0087cc09008d3a671"
+    },
+    {
+      "function_index": 42,
+      "purpose": "perform bounded signed-i32 or NULL insertion for all five integer catalog tables with atomic parsing, capacity, and uniqueness checks",
+      "file": "body-fragments/function-42-catalog-insert.body.bin",
+      "bytes": 510,
+      "sha256": "c4266a383d34d13de0ca45b0c36af90631bc9fb91feb1ba0adee02186ba52e9a"
+    },
+    {
+      "function_index": 42,
+      "purpose": "retain generic catalog insertion and delegate unrecognized SQL to transactional catalog copy",
+      "file": "body-fragments/function-42-catalog-insert-fallback.body.bin",
+      "bytes": 514,
+      "sha256": "05c37ccf2d3584bf5e6f14493f5aecef19ddbd81b7d1ad4b042615e72e8ac4b7"
+    },
+    {
+      "function_index": 43,
+      "purpose": "validate and atomically copy rows for the four pinned integer INSERT...SELECT paths",
+      "file": "body-fragments/function-43-catalog-copy.body.bin",
+      "bytes": 563,
+      "sha256": "8fc4f3ce5013300092a586c7a828101681e8deb5dcc43e458cd5e23ba0c5ae5f"
+    },
+    {
+      "function_index": 43,
+      "purpose": "retain transactional catalog copy and delegate unrecognized SQL to catalog membership",
+      "file": "body-fragments/function-43-catalog-copy-fallback.body.bin",
+      "bytes": 567,
+      "sha256": "8f56510e086cc11ca3cc52c2805ac6bb79a8a4e3db3e29b7a422308c6aa7c1c0"
+    },
+    {
+      "function_index": 44,
+      "purpose": "evaluate signed-i32 or NULL IN and NOT IN over all five integer catalog tables in direct and SELECT-star forms",
+      "file": "body-fragments/function-44-catalog-membership.body.bin",
+      "bytes": 740,
+      "sha256": "5eaaf3ab7d3cc53258389b5d9c4a0a9490497bf1271c41d823a9bdbbc24cd6ac"
+    },
+    {
+      "function_index": 44,
+      "purpose": "retain catalog membership while accepting both lowercase and uppercase NULL operands",
+      "file": "body-fragments/function-44-catalog-membership-nullcase.body.bin",
+      "bytes": 754,
+      "sha256": "d33da0ab3c4eb1e483f675e3d9dd68fdd00604e3b235272ad7575b1766751206"
+    },
+    {
+      "function_index": 45,
+      "purpose": "preflight a snapshot catalog for duplicate non-NULL unique values and NULL primary-key rows without mutating live database state",
+      "file": "body-fragments/function-45-snapshot-unique-validator.body.bin",
+      "bytes": 268,
+      "sha256": "9b3753c2fbee45008e4ecaabe83f92995f8753da07979b4aae9902c4b1d49a10"
+    }
+  ],
+  "data_fragments": [
+    {
+      "purpose": "byte-exact pinned CREATE TABLE statements for t4, t5, t6, t4n, and t6n",
+      "file": "data-fragments/catalog-schema-strings.bin",
+      "bytes": 158,
+      "sha256": "03dc8f255275c41b616a391ab449b4bd5985d33219c1534f2d289c74369532d8"
+    },
+    {
+      "purpose": "byte-exact insertion prefixes for t4, t5, t6, t4n, and t6n",
+      "file": "data-fragments/catalog-insert-prefixes.bin",
+      "bytes": 112,
+      "sha256": "b77faa85f4e2015f62003732bef0900401f729bc757e6e3143f751ca56d1da51"
+    },
+    {
+      "purpose": "byte-exact pinned INSERT...SELECT statements for t5, t6, t4n, and t6n",
+      "file": "data-fragments/catalog-copy-statements.bin",
+      "bytes": 127,
+      "sha256": "6ec2c5e8c3a5e203f4d6d5616fde9c5d7bbc88dcc64215c60574e39e7635a2d9"
+    },
+    {
+      "purpose": "shared IN, NOT IN, and SELECT-star table-expression syntax",
+      "file": "data-fragments/catalog-membership-syntax.bin",
+      "bytes": 27,
+      "sha256": "443bdacd132f866d7b0ff53a06687c6d9f383a23a78f54972ce5d81fdea777e9"
+    }
+  ],
+  "disposable_assembly_probe": {
+    "bytes": 10858,
+    "sha256": "3b90ca83abbcda5ce2be0a8dd0124b21fa69f5845b64f9c12a1f29c483f137b8",
+    "webassembly_validation": "PASS",
+    "reset_catalog_nonzero_bytes_after_reset": 0,
+    "snapshot_catalog_suffix_mismatches": 0,
+    "legacy_t1_boundary_value_preserved": -2147483648
+  },
+  "reader_assembly_probe": {
+    "bytes": 11083,
+    "sha256": "4035e1718e68aa9f8939d12bfcd3cc9b093df11635ab60a73589675e0db0f406",
+    "webassembly_validation": "PASS",
+    "snapshot_read_parameter_count": 1,
+    "mixed_legacy_and_catalog_roundtrip": "PASS",
+    "catalog_roundtrip_byte_mismatches": 0,
+    "truncation_and_trailing_length_rejections": 3685,
+    "invalid_catalog_rejections": 335,
+    "invalid_catalog_scope": "all five schema/count records plus every one of the 320 fixed NULL-flag bytes",
+    "traps": 0,
+    "atomicity_failures": 0
+  },
+  "rejected_create_assembly_probe": {
+    "bytes": 11525,
+    "sha256": "9ac186dca4c706e31dee160fab834b31b2fee112ebd07dbd4cd92b8d83c66b1d",
+    "webassembly_validation": "PASS",
+    "runtime_result": "REJECTED",
+    "failure": "the five positive data addresses used unsigned rather than signed LEB128 and decoded as negative i32.const values, causing an out-of-bounds comparison trap before state mutation"
+  },
+  "rejected_insert_assembly_probe": {
+    "bytes": 12144,
+    "sha256": "c00ba46384fb5208bb633ae3f45948bbde76627c499f09202fc14545e1f80493",
+    "webassembly_validation": "FAIL",
+    "runtime_result": "NEVER_INSTANTIATED",
+    "failure": "function 42 reached an i32.add with only one operand in its first generic catalog-insert body",
+    "failure_offset": 10837,
+    "state_mutation": "NONE",
+    "retained_fragment": {
+      "file": "rejected-fragments/function-42-insert-stack-invalid.body.bin",
+      "bytes": 497,
+      "sha256": "6ca8eb883ec60e2b7407165379364f1831e8741db003d876c4552556991eeb14"
+    }
+  },
+  "rejected_insert_parser_abi_probe": {
+    "bytes": 12141,
+    "sha256": "bdf86a94b149805424a109e96dc00216268b0236480031e6f81606ae80046fd4",
+    "webassembly_validation": "FAIL",
+    "runtime_result": "NEVER_INSTANTIATED",
+    "failure": "the existing signed-integer parser requires SQL pointer, start offset, and end offset; the candidate supplied only a pre-added pointer and end offset",
+    "failure_offset": 10871,
+    "state_mutation": "NONE",
+    "retained_fragment": {
+      "file": "rejected-fragments/function-42-insert-parser-arity-invalid.body.bin",
+      "bytes": 494,
+      "sha256": "0db1c57d38814197b2622df160ed5d344c6ff78144da377b98b621f601858a5f"
+    }
+  },
+  "rejected_insert_null_recognition_probe": {
+    "bytes": 12140,
+    "sha256": "97f4186a8406d791068ac700aad1d380c422ae36c79c5c6e1bf8ab2a625399c6",
+    "webassembly_validation": "PASS",
+    "runtime_result": "REJECTED",
+    "failure": "the four-character NULL check included the closing parenthesis and recognized only uppercase while the pinned setup uses lowercase null",
+    "state_mutation": "NONE_FOR_REJECTED_NULL_INPUTS",
+    "retained_fragment": {
+      "file": "rejected-fragments/function-42-insert-null-recognition-invalid.body.bin",
+      "bytes": 493,
+      "sha256": "4efaea15e7618ec0d46eddb293579732a1207e790e2f3e50c4421362324c5f43"
+    }
+  },
+  "rejected_membership_numeric_digit_probe": {
+    "bytes": 13620,
+    "sha256": "17d282787441defad462ac7dac8befc1f9f4890a2c11e9f225d803c2cba22b6a",
+    "webassembly_validation": "PASS",
+    "runtime_result": "REJECTED",
+    "failure": "table-name bytes were compared with numeric 4, 5, and 6 instead of ASCII 0x34, 0x35, and 0x36",
+    "fixed_state_sqlite_comparisons": 160,
+    "unexpected_rejections": 160,
+    "retained_fragment": {
+      "file": "rejected-fragments/function-44-membership-numeric-digit-invalid.body.bin",
+      "bytes": 736,
+      "sha256": "ce7c76856bd1936f2cb4890007efa1409d032c7dcc2fa2abbff4ea566d277ddd"
+    }
+  },
+  "rejected_membership_signed_character_probe": {
+    "bytes": 13620,
+    "sha256": "51989002aac3d8ae64623a232712c47ee91154dacd4b8251969c45e8aca9cffd",
+    "webassembly_validation": "PASS",
+    "runtime_result": "REJECTED",
+    "failure": "ASCII t and n were encoded as one-byte signed i32.const immediates and decoded as negative values because bit 6 was set",
+    "fixed_state_sqlite_comparisons": 160,
+    "unexpected_rejections": 160,
+    "retained_fragment": {
+      "file": "rejected-fragments/function-44-membership-signed-char-invalid.body.bin",
+      "bytes": 736,
+      "sha256": "b24fb67e22921905bf047705cf0c9d44925686f28288f2a9c8451d409a5cd3fe"
+    }
+  },
+  "create_dispatch_probe": {
+    "bytes": 11530,
+    "sha256": "1a44d0743aaac9eccc4b6a3202d561e13be404837ceff9eb1cfb900f55806de5",
+    "webassembly_validation": "PASS",
+    "new_function_index": 41,
+    "pinned_catalog_creates": 5,
+    "independent_schema_flags": "PASS",
+    "duplicate_create_error": -1,
+    "reset": "PASS",
+    "snapshot_restore": "PASS",
+    "retained_sqllogictest_queries": 58,
+    "retained_sqllogictest_setup_statements": 3,
+    "retained_prefix_failures": 0,
+    "single_byte_schema_mutations": 158,
+    "mutation_unexpected_acceptances": 0,
+    "mutation_state_changes": 0
+  },
+  "generic_insert_probe": {
+    "bytes": 12157,
+    "sha256": "5566552a38394cab69145bc5bd43ca1ba18dc003ab7d5831ecd9da9f10b74ae9",
+    "webassembly_validation": "PASS",
+    "new_function_index": 42,
+    "signed_i32_minimum": "PASS",
+    "signed_i32_maximum": "PASS",
+    "uppercase_null": "PASS",
+    "lowercase_null": "PASS",
+    "unique_duplicate_error": -5,
+    "nonunique_duplicate_insert": "PASS",
+    "missing_schema_error": -2,
+    "malformed_input_error": -10,
+    "malformed_input_atomic": true,
+    "rows_per_table": 64,
+    "full_table_error": -3,
+    "full_table_error_precedes_duplicate_error": true,
+    "catalog_snapshot_roundtrip_mismatches": 0,
+    "retained_sqllogictest_queries": 58,
+    "retained_sqllogictest_setup_statements": 3,
+    "retained_prefix_failures": 0,
+    "pinned_t4_literal_insert_values": [2, 3, 4]
+  },
+  "transactional_copy_probe": {
+    "bytes": 12852,
+    "sha256": "72cd880445e86503cc6cc98592b2fe56a31efcef5cd2e2bb0262cfb92f391164",
+    "webassembly_validation": "PASS",
+    "new_function_index": 43,
+    "pinned_copy_statements": 4,
+    "complete_pinned_integer_setup": "PASS",
+    "expected_table_rows": {
+      "t4": [2, 3, 4],
+      "t5": [2, 3, 4],
+      "t6": [2, 3, 4],
+      "t4n": [2, 3, 4, null],
+      "t6n": [2, 3, 4, null]
+    },
+    "missing_source_error": -2,
+    "missing_destination_error": -2,
+    "capacity_error": -3,
+    "unique_conflict_error": -5,
+    "primary_key_null_error": -10,
+    "rejected_copy_state_changes": 0,
+    "single_byte_statement_mutations": 127,
+    "mutation_unexpected_acceptances_or_state_changes": 0,
+    "catalog_snapshot_roundtrip_mismatches": 0
+  },
+  "catalog_membership_probe": {
+    "bytes": 13624,
+    "sha256": "b14048a6c1b397730fca41ddd8c9f39d5e588f33718e76aa9ff35d0a085a9771",
+    "webassembly_validation": "PASS",
+    "new_function_index": 44,
+    "tables": ["t4", "t5", "t6", "t4n", "t6n"],
+    "rhs_forms": ["direct table", "SELECT * subquery"],
+    "operators": ["IN", "NOT IN"],
+    "fixed_state_sqlite_comparisons": 160,
+    "fixed_state_failures": 0,
+    "random_seeds": 100,
+    "random_sqlite_comparisons": 10000,
+    "random_expected_null_results": 5637,
+    "random_failures": 0,
+    "coverage": "empty and populated unique/nonunique tables, duplicate rows, NULL rows and operands, matches, misses, signed boundaries, and both table-expression spellings"
+  },
+  "snapshot_semantic_invariant_probe": {
+    "bytes": 13903,
+    "sha256": "c132d49e1bab440a4b52b726abc671360336f2ad8ca3cd1c22a0f4e779591876",
+    "webassembly_validation": "PASS",
+    "new_function_index": 45,
+    "valid_mixed_legacy_and_catalog_roundtrip": "PASS",
+    "wrong_length_rejections": 3685,
+    "structural_metadata_corruptions_rejected": 15,
+    "invalid_null_flags_rejected": 320,
+    "duplicate_unique_images_rejected": 3,
+    "primary_key_null_images_rejected": 1,
+    "rejected_image_atomicity_failures": 0,
+    "nonunique_duplicate_images_accepted": 2,
+    "nullable_unique_multiple_null_images_accepted": 2,
+    "traps": 0
+  },
+  "null_keyword_case_probe": {
+    "bytes": 13917,
+    "sha256": "ea10556fc44e69deb0085b6f5a42433804c2243f1d8cb89a41309270174b5eed",
+    "webassembly_validation": "PASS",
+    "lowercase_null_operands": "PASS",
+    "uppercase_null_operands": "PASS",
+    "random_seeds": 100,
+    "generated_membership_comparisons": 10000,
+    "generated_uppercase_null_operands": 835,
+    "generated_expected_null_results": 4591,
+    "failures": 0,
+    "snapshot_unique_corruption_rejection_retained": "PASS"
+  },
+  "promotion_blockers": [
+    "the later pinned text-table setup and membership families are not implemented",
+    "the disposable assembly must not replace JokeBase-v1.wasm"
+  ],
+  "implementation_policy": "This checkpoint preserves raw WebAssembly function-body bytes and binary metadata only. It contains no WAT, implementation source, generator program, compiler input, pseudocode, or decompiled representation."
+}

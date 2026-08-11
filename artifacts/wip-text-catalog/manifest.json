@@ -1,0 +1,54 @@
+{
+  "format": "JokeBase source-free raw-fragment manifest v1",
+  "status": "candidate, not promoted",
+  "parent_promoted_sequence": 18,
+  "parent_sha256": "1d238226c11e693980b61527ced25dde91822a56131243f489e51193231491f1",
+  "candidate": {
+    "path": "JokeBase-candidate-sha256-ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b.wasm",
+    "bytes": 18438,
+    "sha256": "ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b"
+  },
+  "scope": {
+    "tables": ["t7", "t8", "t7n", "t8n"],
+    "rows_per_table": 64,
+    "maximum_unescaped_utf8_bytes_per_value": 32,
+    "text_state_interval": [34368, 43104],
+    "combined_catalog_interval": [30720, 43104],
+    "snapshot_buffer_address": 49152,
+    "snapshot_catalog_suffix_bytes": 12384
+  },
+  "body_fragments": {
+    "function-02.body.bin": {"bytes": 73, "sha256": "faa4605180011fb469e2ec2d0ac9c2cae7da0fb831fe51731273dc131dad4c43"},
+    "function-24.body.bin": {"bytes": 22, "sha256": "8a5a52198bf1b487681576d5f4f79c7d4cd539a3ddd651ee746d2636bb9fb85e"},
+    "function-25.body.bin": {"bytes": 397, "sha256": "920d378eafbc785b3291b0dc964be3e929bc30f369843ba8a0c960d289099909"},
+    "function-26.body.bin": {"bytes": 916, "sha256": "a2d8e2523198572f5c25a4dc66af204029954b00d6ab5966941c09d5959de6ee"},
+    "function-30.body.bin": {"bytes": 643, "sha256": "132e980b589b87bdef73723027e04bc9636c8113337e1a4b2ca4f61acb9fe463"},
+    "function-34.body.bin": {"bytes": 383, "sha256": "9d34d62ccf927071fea7c1b73c94985d4c7160ac04e1f6039a9683fdfb9fa691"},
+    "function-43.body.bin": {"bytes": 567, "sha256": "7609f82d9dea3030f180ac70e8f05246b63569e2f16bd055854e24880cd4321c"},
+    "function-44.body.bin": {"bytes": 754, "sha256": "d33da0ab3c4eb1e483f675e3d9dd68fdd00604e3b235272ad7575b1766751206"},
+    "function-45.body.bin": {"bytes": 273, "sha256": "37f8fc2cf830740284cf57b6a9f43a57eef3d1e4fb7052ffa687d68f21780888"},
+    "function-46.body.bin": {"bytes": 458, "sha256": "b2927753e49cb5074404cbc3efade3ec7e8f1f7578587b0fcad85cd3ba3c2e39"},
+    "function-47.body.bin": {"bytes": 222, "sha256": "ea69e5a627406f594820c6e8227df11a467f32cd782e4b86ec73d17b512f8e61"},
+    "function-48.body.bin": {"bytes": 616, "sha256": "5a3de8f26ce2fee653269a75e32ddee09e3d3ff3684242e1b9a0a50fffb3af16"},
+    "function-49.body.bin": {"bytes": 587, "sha256": "0ad3a6eabcad0941f745ecf81820ea7492fe13536515c23aeb7ba5674efd8d76"},
+    "function-50.body.bin": {"bytes": 811, "sha256": "1d2a080385675c39cc4cf67f20ccda7c91b8abc090ed6bafef9e40eaf70b1e03"},
+    "function-51.body.bin": {"bytes": 485, "sha256": "e7d16039cc65451a06b2ccf870b36891c988daecd321116fd4a3666816cc0f07"},
+    "function-52.body.bin": {"bytes": 485, "sha256": "6bae3ce0f15076346d828751d865f202aa25a29abfe6c2140acd67cd0d6cc0fb"},
+    "function-53.body.bin": {"bytes": 503, "sha256": "df3a24e8b416c9d4169da0fe4571342eb7be781d01425aa46eb20e60b74bd9ef"}
+  },
+  "data_fragments": {
+    "copy-statements.bin": {"bytes": 96, "sha256": "a7c4e75093a6bb3bbd3b9377fbac9af8be6a2a1d57869e2e205841de72bf300f"},
+    "insert-prefixes.bin": {"bytes": 90, "sha256": "a969d6843d72ec7fcfcecff2b266e1bbf78912cc5a6a32006b583a40a5ca06ee"},
+    "schemas.bin": {"bytes": 108, "sha256": "35f4febeb875af4f1361c06442eaeee1c102435053a3e93905d818f6e6c0fcaf"}
+  },
+  "evidence_summary": {
+    "pinned_suite_statements": 27,
+    "pinned_suite_queries": 187,
+    "pinned_suite_failures": 0,
+    "snapshot_wrong_length_cases": 12421,
+    "snapshot_text_corruption_cases": 523,
+    "sqlite_differential_cases": 10000,
+    "stateful_model_operations": 40000
+  },
+  "policy": "These are opaque raw WebAssembly bodies, raw data bytes, and a complete candidate binary. No implementation source, WAT, compiler input, generator program, or decompiled representation is retained."
+}

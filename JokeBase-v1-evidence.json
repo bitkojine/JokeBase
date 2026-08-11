@@ -33,6 +33,7 @@
     "text_list_membership": "unescaped text literals support IN and NOT IN against literal lists containing unescaped text literals and lowercase null",
     "text_list_semantics": "text elements compare byte-exactly without table affinity; matches dominate NULL, misses with a NULL element return NULL, and empty lists preserve SQLite IN and NOT IN semantics",
     "embedding_abi": "ABI major version 1; exact contract is documented in ABI.md",
+    "snapshot_read_abi": "db_snapshot_read(len) reads from the fixed module-owned buffer returned by db_snapshot_ptr(); it does not accept a caller-selected pointer",
     "sql_input_window": "execute accepts only UTF-8 byte ranges wholly contained in [1024,4096), with maximum length 3072; unsupported ranges return -10 before input is read",
     "exported_memory_boundary": "direct host writes outside the SQL input window are outside the ABI contract and can corrupt module state before execute receives control",
     "table_independence": "t1, t2, and t3 have independent schema flags, counts, capacity, values, and reset behavior",
@@ -134,6 +135,17 @@
     "result_cleared_after_rejection": true,
     "module_state_unchanged_by_rejected_execute": true,
     "scope_boundary": "The state guarantee covers execute. Direct host writes outside the supported window occur before execute and remain outside the ABI contract."
+  },
+  "snapshot_abi_correction_probe": {
+    "status": "PASS",
+    "contract_file": "tests/snapshot-abi-contract-v1.json",
+    "export_parameter_count": 1,
+    "valid_roundtrip_bytes": 36,
+    "restored_row_count": 1,
+    "restored_first_value": 37,
+    "short_image_result": -10,
+    "short_image_state_unchanged": true,
+    "correction": "The promoted binary exports db_snapshot_read(len). An earlier ABI.md revision incorrectly documented two parameters; the binary ABI did not change."
   },
   "blob_membership_sqlite_differential": {
     "status": "PASS",

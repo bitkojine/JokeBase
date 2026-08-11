@@ -1,0 +1,30 @@
+{
+  "format": "JokeBase declarative snapshot ABI contract cases v1",
+  "artifact_sha256": "1d238226c11e693980b61527ced25dde91822a56131243f489e51193231491f1",
+  "observed_export": {
+    "name": "db_snapshot_read",
+    "parameter_count": 1,
+    "signature": "db_snapshot_read(len) -> i32",
+    "source_buffer": "the module-owned address returned by db_snapshot_ptr()"
+  },
+  "valid_roundtrip_probe": {
+    "initial_state": "legacy t1 created with the single signed-i32 row 37",
+    "snapshot_pointer": 24576,
+    "snapshot_bytes": 36,
+    "db_snapshot_size": 36,
+    "db_snapshot_write": 36,
+    "db_snapshot_read": 0,
+    "restored_row_count": 1,
+    "restored_first_value": 37,
+    "status": "PASS"
+  },
+  "short_image_atomicity_probe": {
+    "supplied_bytes": 35,
+    "db_snapshot_read": -10,
+    "row_count_before": 1,
+    "row_count_after": 1,
+    "state_unchanged": true,
+    "status": "PASS"
+  },
+  "documentation_correction": "An earlier ABI.md revision incorrectly documented db_snapshot_read(ptr, len). The promoted sequence-18 binary has always exported db_snapshot_read(len); no binary ABI changed."
+}

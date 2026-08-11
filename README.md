@@ -4,6 +4,8 @@ JokeBase is an experimental SQL database distributed only as WebAssembly bytecod
 
 Its defining constraint is absolute: neither humans nor AI agents may read or write implementation source code, WebAssembly text, compiler inputs, generator programs, or decompiled source. Development operates only on raw `.wasm` bytes, binary metadata, runtime behavior, and external tests.
 
+The repository's primary research output is not only the binary. [`TOOLS-AND-LEARNINGS.md`](TOOLS-AND-LEARNINGS.md) records the actual toolchain, trust boundaries, failed candidates, control practices, and lessons learned while evolving software that nobody may inspect at source level. [`DEVLOG.md`](DEVLOG.md) is the append-only development flight log: new observations and corrections are appended, while prior records are never rewritten.
+
 ## WebAssembly is bytecode, not native machine code
 
 WebAssembly (Wasm) is a portable, low-level bytecode format. A `.wasm` binary does not directly contain the x86-64 or ARM instructions executed by a particular CPU. A host engine such as V8, SpiderMonkey, or Wasmtime validates the module and typically translates it into host-specific native machine code using just-in-time (JIT) or ahead-of-time (AOT) compilation. Ahead-of-time compilation may happen before the module is loaded for execution.
@@ -71,6 +73,8 @@ JokeBase currently provides three independent tables, each with capacity for 64 
 - deterministic host-storable three-table snapshots with atomic validation and restoration.
 
 The supported embedding interface is versioned in [`ABI.md`](ABI.md). SQL bytes must be staged wholly inside memory addresses `[1024,4096)`, with a maximum length of 3,072 bytes. Sequence 18 rejects every other `execute(ptr,len)` range with `-10` before reading it. Because the linear memory is exported, direct host writes outside that window remain outside the contract and can corrupt module state before JokeBase receives control.
+
+Snapshot restoration uses `db_snapshot_read(len)`: the host places the image at the fixed address returned by `db_snapshot_ptr()` and supplies only its length. An earlier revision of `ABI.md` incorrectly documented a caller-selected pointer parameter. The binary always had the one-parameter export; `tests/snapshot-abi-contract-v1.json` preserves the correction probe and atomic short-image rejection result.
 
 This is not a general SQL implementation. Tables beyond `t1`, `t2`, and `t3`, multiple columns, arbitrary identifiers, stored floating-point/text/blob values, general floating-point/text/cross-table expressions, joins, grouping, ordering, indexes, transactions, internal filesystem I/O, and concurrency remain unsupported. Decimal exponent notation and more than six fractional digits are unsupported. Text literals with embedded quotes are unsupported; text membership against integer `t1` recognizes numeric affinity only for optional-minus integers. `t2` does not yet support NULL rowid allocation, projection, update, or delete; `t3` does not yet support projection, update, or delete. SQL keyword casing is not yet consistently general. The exact contract is recorded in `JokeBase-v1-evidence.json`.
 

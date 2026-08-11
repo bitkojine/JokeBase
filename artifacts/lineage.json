@@ -130,9 +130,18 @@
       "sha256": "9574030eecd603af64986df52b246003d7294b1c59c7a60daeafbb4e5789658b",
       "parent_sha256": "13884540774047410c44bc39952b2647d02cd1e79074bb40105cba9579ac9aec",
       "capability_delta": "state-dependent NULL-aware IN and NOT IN over the populated t1 by t2 x+y product, with signed-overflow-safe comparison and a 36-query contiguous SQLLogicTest prefix"
+    },
+    {
+      "sequence": 14,
+      "file": "promoted/JokeBase-0014-sha256-31e3382836c81f0b0d712bb920866d9572c9a39cf6d00da19c20f43c78bb5319.wasm",
+      "evidence_file": "promoted/JokeBase-0014-evidence.json",
+      "bytes": 8782,
+      "sha256": "31e3382836c81f0b0d712bb920866d9572c9a39cf6d00da19c20f43c78bb5319",
+      "parent_sha256": "9574030eecd603af64986df52b246003d7294b1c59c7a60daeafbb4e5789658b",
+      "capability_delta": "signed decimal-literal IN and NOT IN over empty lists and integer t1 rows, with exact integral equivalence, NULL semantics, and a 42-query contiguous SQLLogicTest prefix"
     }
   ],
-  "current_promoted_sha256": "9574030eecd603af64986df52b246003d7294b1c59c7a60daeafbb4e5789658b",
+  "current_promoted_sha256": "31e3382836c81f0b0d712bb920866d9572c9a39cf6d00da19c20f43c78bb5319",
   "external_replication": {
     "status": "configured and verified",
     "repository": "https://github.com/bitkojine/JokeBase",

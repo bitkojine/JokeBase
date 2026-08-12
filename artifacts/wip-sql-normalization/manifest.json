@@ -8,8 +8,8 @@
   },
   "candidate": {
     "file": "JokeBase-candidate.wasm",
-    "bytes": 19819,
-    "sha256": "126889a0bb110c29e601d450c4e1a4903e435ce1173918114c90f2348b28e1e7"
+    "bytes": 19849,
+    "sha256": "1daba1ac2635a0aad019a8d351ebb8ee5fab66b617b6b7f2745c39b901a419a2"
   },
   "raw_binary_fragments": [
     "body-fragments/function-01-execute.body.bin",
@@ -33,8 +33,10 @@
   "validation_so_far": {
     "webassembly_compile": "PASS",
     "focused_whitespace_equivalence": "PASS",
+    "generated_stateful_whitespace_equivalence_checks": 21600,
+    "pinned_record_differential_checks": 1259,
     "quoted_space_preservation": "PASS",
-    "full_regression_and_adversarial_gates": "PENDING"
+    "full_regression_and_adversarial_gates": "IN PROGRESS"
   },
   "policy": "Only raw Wasm bytes, opaque function bodies, binary metadata, runtime behavior, and external tests are retained. No JokeBase implementation source, WAT, compiler input, or decompiled representation was read, written, or retained."
 }

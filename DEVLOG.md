@@ -224,3 +224,12 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Focused observation: canonical create/insert/select and literal membership results matched variants containing repeated spaces, tabs, newlines, outer whitespace, and spaces before parentheses; spaces inside quoted TEXT operands remained unchanged.
 - Promotion status: not promoted. Full pinned-corpus equivalence, generated whitespace properties, malformed-input atomicity, boundary probes, and cross-feature state/snapshot regressions remain mandatory.
 - Control conclusion: retain failed counterexamples and encoding lessons early. In source-free binary development, the difference between intended logic and valid byte representation is itself a major disturbance that the control system must observe.
+
+## 2026-08-12 — control record 0026
+
+- Generated-test disturbance: the first deterministic whitespace campaign failed at pinned record 60. `SELECT 'a' IN ('b','c','d')` was mutated to include whitespace after commas, and the candidate preserved those spaces before the following quoted operands, causing rejection.
+- Raw-binary correction: extended the quote-opening branch with the same preceding-parenthesis and preceding-comma guards used by the ordinary token path. The replacement candidate is 19,849 bytes with SHA-256 `1daba1ac2635a0aad019a8d351ebb8ee5fab66b617b6b7f2745c39b901a419a2`.
+- Restarted regression observation: sequence 20 and the corrected candidate produced identical status, result values, and complete snapshot bytes after all 216 `in1.test`, 1,031 `select1.test`, and 12 `droptable.test` executable records, including records outside the supported grammar.
+- Restarted property observation: 100 fresh stateful replays of all 216 pinned `in1.test` records passed after deterministic mutations of existing whitespace, outer whitespace, and punctuation-adjacent whitespace outside quoted literals: 21,600 complete status/result/snapshot equivalence checks with seed `0x4a6f6b65`.
+- Promotion status: not promoted. ABI-window, malformed-input atomicity, capacity, snapshot recovery, and broader feature regressions remain open.
+- Control conclusion: generated disturbances must cover token boundaries next to quoted operands; testing only keyword whitespace would have missed a separate control path.

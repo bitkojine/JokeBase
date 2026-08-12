@@ -52,9 +52,11 @@ These descriptions follow the official [WebAssembly specification introduction](
 ## Current artifact
 
 - File: `JokeBase-v1.wasm`
-- Size: 18,438 bytes
-- SHA-256: `ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b`
-- Promoted sequence: 19
+- Size: 19,514 bytes
+- SHA-256: `ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8`
+- Promoted sequence: 20
+
+Sequence 20 is byte-identical to sequence 19 through the end of every prior core executable and data section. It adds only the artifact-owned `jokebase.diagnostics.v1` custom section, which holds user-facing errors and help for the declared negative ABI statuses. The promotion evidence is in [`artifacts/promoted/JokeBase-0020-evidence.json`](artifacts/promoted/JokeBase-0020-evidence.json).
 
 The content-addressed copy is preserved under `artifacts/promoted/`. `artifacts/lineage.json` links every retained promoted binary to its parent.
 
@@ -86,7 +88,7 @@ JokeBase currently provides twelve bounded one-column table identities, each wit
 
 The supported embedding interface is versioned in [`ABI.md`](ABI.md). SQL bytes must be staged wholly inside memory addresses `[1024,4096)`, with a maximum length of 3,072 bytes. Sequence 19 rejects every other `execute(ptr,len)` range with `-10` before reading it. Because the linear memory is exported, direct host writes outside that window remain outside the contract and can corrupt module state before JokeBase receives control.
 
-Negative ABI codes are compact machine-facing statuses, not sufficient user-facing explanations. The host diagnostic policy in [`ABI.md`](ABI.md#host-diagnostic-contract) requires every interactive embedding to render a plain-English error, stable `JB-` identifier, relevant context, and concrete next action rather than exposing a bare `Error -2` or equivalent.
+Negative ABI codes are compact machine-facing statuses, not sufficient user-facing explanations. From sequence 20, the artifact itself carries the error identifier, plain-English message, and suggested next action; the host diagnostic policy in [`ABI.md`](ABI.md#host-diagnostic-contract) requires interactive embeddings to display that artifact-provided entry plus observed context rather than exposing a bare `Error -2` or maintaining an independent error-message map.
 
 Snapshot restoration uses `db_snapshot_read(len)`: the host places the image at the fixed address returned by `db_snapshot_ptr()` and supplies only its length. An earlier revision of `ABI.md` incorrectly documented a caller-selected pointer parameter. The binary always had the one-parameter export; `tests/snapshot-abi-contract-v1.json` preserves the correction probe and atomic short-image rejection result.
 

@@ -1,0 +1,42 @@
+{
+  "artifact": {
+    "file": "JokeBase-v1.wasm",
+    "format": "WebAssembly core binary with standard custom diagnostic registry",
+    "bytes": 19514,
+    "sha256": "ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8"
+  },
+  "parent": {
+    "sequence": 19,
+    "sha256": "ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b"
+  },
+  "capability_delta": {
+    "diagnostics": "The artifact carries one jokebase.diagnostics.v1 custom section containing stable JB identifiers, primary errors, and help for all six declared negative ABI codes. Hosts retrieve and display this registry rather than owning a numeric-code-to-text mapping."
+  },
+  "nonsemantic_identity": {
+    "status": "PASS",
+    "parent_executable_and_existing_data_prefix_bytes": 18438,
+    "byte_identical_to_parent": true,
+    "reasoning": "The candidate is the exact sequence-19 binary followed by a standard custom section. Core execution and pre-existing data sections are byte-identical; standard custom sections are non-semantic to core WebAssembly execution."
+  },
+  "diagnostic_registry": {
+    "status": "PASS",
+    "section_name": "jokebase.diagnostics.v1",
+    "owner": "wasm-artifact",
+    "entries": 6,
+    "codes": [-1, -2, -3, -4, -5, -10],
+    "each_entry_has": ["id", "error", "help"]
+  },
+  "runtime_probe": {
+    "webassembly_validation": "PASS",
+    "runtime": "Node.js v26.5.0 / V8",
+    "create_insert_select": "PASS"
+  },
+  "evidence_inheritance": {
+    "sequence_19_behavioral_evidence": "Applies unchanged to executable behavior because every sequence-19 executable and pre-existing data byte is identical in sequence 20. See JokeBase-0019-evidence.json.",
+    "claim_boundary": "This promotion establishes artifact-owned diagnostic metadata. It does not claim a new SQL semantic capability or replace multi-engine execution evidence."
+  },
+  "promotion": {
+    "sequence": 20,
+    "source_free_policy": "Only raw Wasm bytes, binary metadata, runtime behavior, external test logic/data, and opaque raw fragments were used; no JokeBase implementation source, WAT, compiler input, or decompiled representation was created or inspected. This nonsemantic extension was formed directly as raw Wasm binary data."
+  }
+}

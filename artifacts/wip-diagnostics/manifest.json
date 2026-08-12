@@ -1,0 +1,29 @@
+{
+  "format": "JokeBase source-free raw-binary checkpoint v1",
+  "status": "candidate validated for promotion",
+  "parent": {
+    "sequence": 19,
+    "bytes": 18438,
+    "sha256": "ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b"
+  },
+  "candidate": {
+    "file": "JokeBase-candidate.wasm",
+    "bytes": 19514,
+    "sha256": "ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8"
+  },
+  "raw_change": {
+    "kind": "standard WebAssembly custom section",
+    "name": "jokebase.diagnostics.v1",
+    "ownership": "wasm-artifact",
+    "registry_entries": 6,
+    "code_and_existing_data_prefix_identical_to_parent": true,
+    "claim_boundary": "The custom section is artifact-owned metadata. It does not add executable core-Wasm instructions or alter the existing function ABI."
+  },
+  "validation": {
+    "webassembly_compile": "PASS",
+    "custom_section_cardinality": 1,
+    "all_declared_negative_codes_have_id_error_help": true,
+    "basic_create_insert_select": "PASS"
+  },
+  "policy": "Only raw Wasm bytes, binary metadata, runtime behavior, and external tests were used. No JokeBase implementation source, WAT, compiler input, or decompiled representation is retained. The candidate was formed as a raw-binary custom-section extension, not from implementation source."
+}

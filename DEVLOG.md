@@ -191,3 +191,11 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Diagnostic-policy intervention: added the host diagnostic contract to `ABI.md`. It preserves numeric ABI statuses for machine callers while requiring interactive hosts to add a stable `JB-` identifier, plain-English primary error, observed context, concrete help, and the submitted SQL/available location information.
 - Rust diagnostic lesson applied: separate concise primary error, contextual note, and actionable help; give recurring errors stable identifiers with explanatory documentation; and test the rendered diagnostic surface rather than only a numeric status. The rule is informed by Rust's official compiler diagnostic and UI-test guidance, not by any implementation inspection.
 - Control conclusion: interface observability is part of the control loop. A binary may return the right status and still fail the end-user feedback loop if its host fails to convert that status into an understandable, actionable observation.
+
+## 2026-08-12 — control record 0022
+
+- Architectural correction: the first diagnostic policy placed the permanent numeric-code-to-text mapping in the website host. That made the host a policy engine, violating the intended thin-host boundary.
+- Candidate intervention: appended an artifact-owned `jokebase.diagnostics.v1` custom section to a raw sequence-19 candidate. It holds the stable `JB-` identifiers, primary messages, and help for every declared negative ABI code. The core executable sections and all existing data sections are byte-identical to sequence 19; only the appended standard Wasm custom section is new.
+- Candidate identity: 19,514 bytes; SHA-256 `ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8`.
+- Candidate probes: WebAssembly compilation passed; the module exposed exactly one valid diagnostic registry whose owner is `wasm-artifact`; basic create/insert/select behavior passed unchanged.
+- Control conclusion: diagnostic ownership belongs to the artifact. A host may display bytes decoded from the binary and add observed input context, but it must not own the database's semantic error vocabulary.

@@ -184,9 +184,18 @@
       "sha256": "ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b",
       "parent_sha256": "1d238226c11e693980b61527ced25dde91822a56131243f489e51193231491f1",
       "capability_delta": "bounded five-table integer and four-table TEXT catalogs with constraints, atomic copies, three-valued membership, expanded validated snapshots, and all 187 SQLite-enabled queries in the complete pinned in1.test file"
+    },
+    {
+      "sequence": 20,
+      "file": "promoted/JokeBase-0020-sha256-ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8.wasm",
+      "evidence_file": "promoted/JokeBase-0020-evidence.json",
+      "bytes": 19514,
+      "sha256": "ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8",
+      "parent_sha256": "ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b",
+      "capability_delta": "artifact-owned Jokebase diagnostic registry in a standard WebAssembly custom section; core executable and existing data bytes are identical to sequence 19"
     }
   ],
-  "current_promoted_sha256": "ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b",
+  "current_promoted_sha256": "ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8",
   "external_replication": {
     "status": "configured and verified",
     "repository": "https://github.com/bitkojine/JokeBase",
@@ -195,6 +204,6 @@
     "first_public_commit": "684433aaedb17417053747fcd5faee4b63e8770d",
     "latest_verified_sequence": 19,
     "latest_promotion_commit": "0ef8111aeb68d0c03f0fd658a180c8774f3fb189",
-    "verification": "GitHub-served JokeBase-v1.wasm matched the sequence-19 current_promoted_sha256 after the direct main-branch publication"
+    "verification": "GitHub-served JokeBase-v1.wasm matched the sequence-19 current_promoted_sha256 after the direct main-branch publication. Sequence 20 awaits external publication verification."
   }
 }

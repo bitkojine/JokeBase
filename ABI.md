@@ -48,29 +48,29 @@ The current error codes are:
 
 ## Host diagnostic contract
 
-The binary return code is a compact, stable machine-facing status. It is not a complete end-user diagnostic. Every host, command-line tool, test report, and web interface built for JokeBase **must translate a negative code into a useful diagnostic**. Do not render a bare value such as `Error -2` as the final user-visible outcome.
+The binary return code is a compact, stable machine-facing status. It is not a complete end-user diagnostic. From sequence 20, the artifact itself owns the corresponding plain-language error and help text in its `jokebase.diagnostics.v1` WebAssembly custom section. Every host, command-line tool, test report, and web interface built for JokeBase **must retrieve and display that artifact-provided entry**. A host may add only observed presentation context such as the submitted SQL; it must not independently invent or map diagnostic wording. Do not render a bare value such as `Error -2` as the final user-visible outcome.
 
 The required shape is:
 
 ```text
-error[JB-0002]: table `t1` does not exist in this database instance
-  note: this is a fresh, empty instance
-  help: create it first with `CREATE TABLE t1(x INTEGER)`
+error[JB-0002] (-2): referenced table does not exist in this database instance
+  note: submitted SQL: SELECT x FROM t1
+  help: create the declared table before querying it
 ```
 
-The `JB-` identifier is a stable host diagnostic identifier; it maps one-to-one to the ABI return code today (`JB-0002` maps to `-2`). It does not change the WebAssembly ABI or assert that the binary itself contains text diagnostics.
+The `JB-` identifier is a stable artifact diagnostic identifier; it maps one-to-one to the ABI return code today (`JB-0002` maps to `-2`). The UTF-8 registry is physically carried by the `.wasm` artifact and is obtained with the standard `WebAssembly.Module.customSections(module, "jokebase.diagnostics.v1")` API. Its JSON object has `format`, `owner: "wasm-artifact"`, and a `codes` map keyed by signed decimal ABI return code. It does not change the executing core-Wasm function ABI.
 
 Each displayed error must include all applicable parts:
 
-1. a short, plain-English primary message naming the failed operation and relevant object/value;
-2. a stable `JB-` diagnostic identifier and the raw ABI code for programmatic support and evidence;
-3. a `note` with relevant observed context (for example, that a new instance was selected, the fixed row limit is 64, or the input was outside the permitted staging window);
-4. a concrete `help` action when one is known; and
+1. an artifact-provided short, plain-English primary message;
+2. an artifact-provided stable `JB-` diagnostic identifier and the raw ABI code for programmatic support and evidence;
+3. a `note` with observed host context (for example the submitted SQL, a fresh-instance transition, or the supplied input range), clearly distinguished from module-owned wording;
+4. an artifact-provided concrete `help` action; and
 5. the exact submitted SQL, with a best-effort byte offset or highlighted span where the host can determine one without guessing.
 
 Suggested baseline messages:
 
-| ABI code | Host diagnostic | Primary message | Useful help |
+| ABI code | Artifact diagnostic | Primary message | Useful help |
 | --- | --- | --- | --- |
 | `-1` | `JB-0001` | table already exists | use a new instance, or select another declared table identity |
 | `-2` | `JB-0002` | referenced table does not exist in this database instance | create the declared table first; after a new instance, all tables are absent |
@@ -83,7 +83,7 @@ This policy is deliberately modeled after Rust compiler diagnostics: use simple,
 
 ### Diagnostic tests
 
-For every supported host integration, test at least one contextual example for each negative code it can emit. Assertions must cover the diagnostic identifier, primary message, contextual note, and help text—not only the raw return value. Treat new bare numeric errors in interactive surfaces as a regression. The source-free rule remains intact: these tests observe only public ABI inputs and outputs.
+For every supported host integration, test at least one contextual example for each negative code it can emit. Assertions must prove that the displayed identifier, primary message, and help text match the decoded artifact registry, plus any host-owned contextual note—not only the raw return value. Treat new bare numeric errors or host-owned diagnostic mappings in interactive surfaces as a regression. The source-free rule remains intact: these tests observe only public ABI inputs and outputs.
 
 ## Lifecycle and legacy row API
 

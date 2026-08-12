@@ -211,8 +211,8 @@
     "visibility": "public",
     "branch": "main",
     "first_public_commit": "684433aaedb17417053747fcd5faee4b63e8770d",
-    "latest_verified_sequence": 20,
-    "latest_promotion_commit": "2a2bda6b25005dfd864730c06c7e49a22249c610",
-    "verification": "Sequence 21 publication verification is pending."
+    "latest_verified_sequence": 21,
+    "latest_promotion_commit": "3b4872f",
+    "verification": "GitHub-served JokeBase-v1.wasm matched the sequence-21 current_promoted_sha256 and 19,915-byte size after direct main-branch publication."
   }
 }

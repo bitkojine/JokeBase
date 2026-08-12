@@ -244,3 +244,8 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Constraint movement: exact whitespace and terminator spelling is no longer the dominant user-visible limit for the supported grammar. The larger fixed-schema/storage architecture—twelve declared one-column identities with fixed capacity—is now the constraint to exploit next. Keyword case remains a narrower known parser limit.
 - Publication status: local promotion complete; public replication pending.
 - Control conclusion: the correct TOC move is not to maximize parser permissiveness at any semantic cost. Preserve database truth first, accept the bounded normalization gain, and expose the next architectural constraint honestly.
+
+## 2026-08-12 — control record 0028
+
+- Publication observation: public GitHub `main` advanced to sequence-21 promotion commit `3b4872f`; a fresh GitHub-served `JokeBase-v1.wasm` download was 19,915 bytes and matched SHA-256 `17c41f8f16f3e899c48f53314bbe338eb936266c551cf308ad612607ac498e1a`.
+- Replication conclusion: the promoted current artifact, content-addressed archive, local lineage, and public backup identify the same sequence-21 bytes.

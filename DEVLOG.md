@@ -266,3 +266,10 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Control value: animated traces make the artifact's modular shape visible while the exact labels remain the measurement layer. Reduced-motion clients receive a static floorplan.
 - Preservation and deployment: public adversarial-host commit `a3765b6f6aca8b3254637d11aef2b1a8a2837c88`; production Sites version 7 deployed successfully at `https://jokebase-wasm-live.fshfgh.chatgpt.site`.
 - Control conclusion: visualization can improve observability without weakening the source-free rule when it exposes declared binary structure rather than reconstructing implementation semantics.
+
+## 2026-08-12 — control record 0031
+
+- Exploration-surface intervention: added an **Explore binary floorplan** control that opens the same active-artifact visualization as a full-screen modal view rather than replacing it with a second model.
+- Interaction and accessibility: the expanded view locks page scrolling, keeps a labeled close button visible above the canvas, accepts the Escape key, exposes dialog semantics, and retains reduced-motion behavior.
+- Preservation and deployment: public adversarial-host commit `37d1944be895bf1e258c142f8aa198f7e72486c2`; production Sites version 8 deployed successfully at `https://jokebase-wasm-live.fshfgh.chatgpt.site`.
+- Control conclusion: high-detail observability needs an intentional inspection surface; a background can reveal shape, while a reversible full-screen mode supports deliberate exploration without obscuring the database controls permanently.

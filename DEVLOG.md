@@ -207,3 +207,10 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Thin-host end-to-end gate: the public demo decoded `jokebase.diagnostics.v1` from the loaded module and rendered `JB-0002` for a missing `t1`; its browser console had zero errors. The website contains only generic custom-section decoding and presentation, not the database diagnostic map.
 - Publication observation: public GitHub main advanced to commit `2a2bda6b25005dfd864730c06c7e49a22249c610`; a fresh GitHub-served `JokeBase-v1.wasm` download hashed to the promoted sequence-20 SHA-256.
 - Control conclusion: a thin host is not an empty host. It may stage inputs, invoke the ABI, decode an artifact-declared registry generically, and render observed outcomes. Semantic vocabulary and help remain part of the binary evidence.
+
+## 2026-08-12 — control record 0024
+
+- Host-purpose correction: the browser host was initially framed as a positive product demonstration. That framing hides the experiment's most valuable output: the observable ways the artifact is incomplete, fragile, or unsafe to treat as a production database.
+- Adversarial-host policy: the demo must favor counterexamples over marketing. Every positive behavior shown needs a nearby declared boundary; interactive cards should run real probes against fresh instances; security and durability claims must name what the Wasm sandbox does and does not protect; and passing a pinned corpus must never be presented as broad correctness or security proof.
+- Initial live probes: ordinary-but-unsupported SQL spelling, unsupported arbitrary/multi-column schema creation, and the fixed 64-row capacity limit. The host also states the exposed-memory trust boundary, host-managed non-durability, absence of access control/transactions/concurrency, and evidence gaps.
+- Control conclusion: test evidence is most useful when the interface actively directs users toward the remaining uncertainty. A demo that only shows successes is an uncalibrated sensor.

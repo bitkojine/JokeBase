@@ -257,3 +257,12 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Thin-host control: the website still performs no SQL normalization and owns no diagnostic mapping. It stages the submitted bytes, invokes the public ABI, and decodes the artifact-owned `jokebase.diagnostics.v1` section generically.
 - Preservation and deployment: the public host repository advanced to commit `c8ff2918456ebfbf99704d426c8ebbf17c1c1ff4`; its exact promoted sequence-21 binary is 19,915 bytes. Sites version 6 deployed successfully at `https://jokebase-wasm-live.fshfgh.chatgpt.site`.
 - Control conclusion: when a constraint moves, the external sensor must move with it. Continuing to demonstrate the fixed failure would create stale feedback and hide the next system limit.
+
+## 2026-08-12 — control record 0030
+
+- Observability intervention: added an interactive chip-floorplan background to the adversarial host, derived at runtime from the exact active sequence-21 `.wasm` bytes.
+- Permitted observation boundary: the host reads only the standard eight-byte Wasm header, section identifiers, unsigned section-length encodings, byte offsets, byte lengths, and custom-section names. It does not decode instructions, inspect function bodies, disassemble the module, or derive implementation source.
+- Visual encoding: regions follow artifact section order; each hover readout reports the real section name, size, and hexadecimal file offset. Region area uses square-root byte scaling, explicitly disclosed in the interface, so small sections remain observable instead of disappearing beside the code section.
+- Control value: animated traces make the artifact's modular shape visible while the exact labels remain the measurement layer. Reduced-motion clients receive a static floorplan.
+- Preservation and deployment: public adversarial-host commit `a3765b6f6aca8b3254637d11aef2b1a8a2837c88`; production Sites version 7 deployed successfully at `https://jokebase-wasm-live.fshfgh.chatgpt.site`.
+- Control conclusion: visualization can improve observability without weakening the source-free rule when it exposes declared binary structure rather than reconstructing implementation semantics.

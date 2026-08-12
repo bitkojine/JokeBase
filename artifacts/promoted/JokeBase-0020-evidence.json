@@ -37,6 +37,13 @@
   },
   "promotion": {
     "sequence": 20,
-    "source_free_policy": "Only raw Wasm bytes, binary metadata, runtime behavior, external test logic/data, and opaque raw fragments were used; no JokeBase implementation source, WAT, compiler input, or decompiled representation was created or inspected. This nonsemantic extension was formed directly as raw Wasm binary data."
+    "source_free_policy": "Only raw Wasm bytes, binary metadata, runtime behavior, external test logic/data, and opaque raw fragments were used; no JokeBase implementation source, WAT, compiler input, or decompiled representation was created or inspected. This nonsemantic extension was formed directly as raw Wasm binary data.",
+    "public_replication": {
+      "status": "PASS",
+      "repository": "https://github.com/bitkojine/JokeBase",
+      "branch": "main",
+      "promotion_commit": "2a2bda6b25005dfd864730c06c7e49a22249c610",
+      "github_served_artifact_sha256": "ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8"
+    }
   }
 }

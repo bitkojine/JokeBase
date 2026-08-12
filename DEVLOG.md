@@ -199,3 +199,11 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Candidate identity: 19,514 bytes; SHA-256 `ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8`.
 - Candidate probes: WebAssembly compilation passed; the module exposed exactly one valid diagnostic registry whose owner is `wasm-artifact`; basic create/insert/select behavior passed unchanged.
 - Control conclusion: diagnostic ownership belongs to the artifact. A host may display bytes decoded from the binary and add observed input context, but it must not own the database's semantic error vocabulary.
+
+## 2026-08-12 — control record 0023
+
+- Promotion: sequence 20, 19,514 bytes, SHA-256 `ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8`; parent sequence 19 SHA-256 `ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b`.
+- Semantic-preservation gate: the first 18,438 candidate bytes exactly match sequence 19, preserving every prior executable and data section. The only delta is an appended standard Wasm custom section; V8 validation and cross-feature create/constraint/TEXT-membership/missing-table/snapshot probes passed.
+- Thin-host end-to-end gate: the public demo decoded `jokebase.diagnostics.v1` from the loaded module and rendered `JB-0002` for a missing `t1`; its browser console had zero errors. The website contains only generic custom-section decoding and presentation, not the database diagnostic map.
+- Publication observation: public GitHub main advanced to commit `2a2bda6b25005dfd864730c06c7e49a22249c610`; a fresh GitHub-served `JokeBase-v1.wasm` download hashed to the promoted sequence-20 SHA-256.
+- Control conclusion: a thin host is not an empty host. It may stage inputs, invoke the ABI, decode an artifact-declared registry generically, and render observed outcomes. Semantic vocabulary and help remain part of the binary evidence.

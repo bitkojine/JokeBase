@@ -1,6 +1,6 @@
 {
   "format": "JokeBase source-free raw-binary checkpoint v1",
-  "status": "candidate under test",
+  "status": "promoted as sequence 21",
   "parent": {
     "sequence": 20,
     "bytes": 19514,
@@ -8,8 +8,8 @@
   },
   "candidate": {
     "file": "JokeBase-candidate.wasm",
-    "bytes": 19849,
-    "sha256": "1daba1ac2635a0aad019a8d351ebb8ee5fab66b617b6b7f2745c39b901a419a2"
+    "bytes": 19915,
+    "sha256": "17c41f8f16f3e899c48f53314bbe338eb936266c551cf308ad612607ac498e1a"
   },
   "raw_binary_fragments": [
     "body-fragments/function-01-execute.body.bin",
@@ -28,7 +28,7 @@
     "normalize_spacing_around_parentheses_and_commas": true,
     "preserve_bytes_inside_single_quoted_literals": true,
     "keyword_case_normalization": false,
-    "optional_trailing_semicolon": false
+    "optional_trailing_semicolon": true
   },
   "validation_so_far": {
     "webassembly_compile": "PASS",
@@ -36,7 +36,14 @@
     "generated_stateful_whitespace_equivalence_checks": 21600,
     "pinned_record_differential_checks": 1259,
     "quoted_space_preservation": "PASS",
-    "full_regression_and_adversarial_gates": "IN PROGRESS"
+    "materialized_semantic_checks": 60000,
+    "malformed_input_fuzz_cases": 10000,
+    "fresh_snapshot_recoveries": 1000,
+    "full_regression_and_adversarial_gates": "PASS"
+  },
+  "promotion": {
+    "sequence": 21,
+    "evidence": "../promoted/JokeBase-0021-evidence.json"
   },
   "policy": "Only raw Wasm bytes, opaque function bodies, binary metadata, runtime behavior, and external tests are retained. No JokeBase implementation source, WAT, compiler input, or decompiled representation was read, written, or retained."
 }

@@ -2,14 +2,15 @@
   "artifact": {
     "file": "JokeBase-v1.wasm",
     "format": "WebAssembly core binary",
-    "bytes": 18438,
-    "sha256": "ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b"
+    "bytes": 19915,
+    "sha256": "17c41f8f16f3e899c48f53314bbe338eb936266c551cf308ad612607ac498e1a"
   },
   "parent": {
-    "sequence": 18,
-    "sha256": "1d238226c11e693980b61527ced25dde91822a56131243f489e51193231491f1"
+    "sequence": 20,
+    "sha256": "ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8"
   },
   "capability_delta": {
+    "sequence_21_sql_normalization": "Trimmed and normalized unquoted ASCII whitespace plus one optional trailing semicolon, while preserving exact bytes inside single-quoted literals.",
     "integer_catalog": {
       "tables": ["t4(a INTEGER UNIQUE)", "t5(b INTEGER PRIMARY KEY)", "t6(c INTEGER)", "t4n(a INTEGER UNIQUE)", "t6n(c INTEGER)"],
       "capacity_per_table": 64,

@@ -233,3 +233,14 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Restarted property observation: 100 fresh stateful replays of all 216 pinned `in1.test` records passed after deterministic mutations of existing whitespace, outer whitespace, and punctuation-adjacent whitespace outside quoted literals: 21,600 complete status/result/snapshot equivalence checks with seed `0x4a6f6b65`.
 - Promotion status: not promoted. ABI-window, malformed-input atomicity, capacity, snapshot recovery, and broader feature regressions remain open.
 - Control conclusion: generated disturbances must cover token boundaries next to quoted operands; testing only keyword whitespace would have missed a separate control path.
+
+## 2026-08-12 — control record 0027
+
+- Rejected intervention: changing shared fixed-byte comparator function 9 to ASCII case-insensitive matching allowed lowercase SQL keywords and identifiers, but also changed stored TEXT semantics: `SELECT 'ABC' IN ('abc')` incorrectly returned true.
+- Corrective action: restored function 9 byte-for-byte and retained keyword case as an explicit limitation. Parser matching and value comparison share this low-level seam; they cannot be safely conflated.
+- Additional normalization: the raw pre-dispatch helper now accepts one optional trailing semicolon, including ordinary whitespace before or after it, while retaining exact bytes inside quoted literals.
+- Final restarted gates: 1,259 exact pinned status/result/snapshot comparisons; 21,600 stateful whitespace-and-semicolon equivalence properties; 60,000 materialized SQLite expected-result checks; 10,000 malformed-input atomicity probes; nine rejected ABI ranges; 1,000 fresh snapshot recoveries; 64-row capacity and unique-duplicate precedence; zero observed traps.
+- Promotion: sequence 21, 19,915 bytes, SHA-256 `17c41f8f16f3e899c48f53314bbe338eb936266c551cf308ad612607ac498e1a`; parent sequence 20 SHA-256 `ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8`.
+- Constraint movement: exact whitespace and terminator spelling is no longer the dominant user-visible limit for the supported grammar. The larger fixed-schema/storage architecture—twelve declared one-column identities with fixed capacity—is now the constraint to exploit next. Keyword case remains a narrower known parser limit.
+- Publication status: local promotion complete; public replication pending.
+- Control conclusion: the correct TOC move is not to maximize parser permissiveness at any semantic cost. Preserve database truth first, accept the bounded normalization gain, and expose the next architectural constraint honestly.

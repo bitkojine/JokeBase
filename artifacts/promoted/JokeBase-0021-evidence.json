@@ -1,0 +1,58 @@
+{
+  "artifact": {
+    "file": "JokeBase-v1.wasm",
+    "format": "WebAssembly core binary with artifact-owned diagnostic registry",
+    "bytes": 19915,
+    "sha256": "17c41f8f16f3e899c48f53314bbe338eb936266c551cf308ad612607ac498e1a"
+  },
+  "parent": {
+    "sequence": 20,
+    "sha256": "ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8"
+  },
+  "capability_delta": {
+    "sql_normalization": "Before dispatch, accepted SQL is trimmed, unquoted ASCII whitespace runs are normalized, punctuation-adjacent whitespace is normalized for the supported grammar, bytes inside single-quoted literals remain exact, and one optional trailing semicolon is accepted.",
+    "abi": "No export, SQL input-window, result, diagnostic-registry, or snapshot-format change."
+  },
+  "binary_change": {
+    "modified_function_index": 1,
+    "appended_function_index": 54,
+    "function_count": 55,
+    "opaque_fragments": [
+      "../wip-sql-normalization/body-fragments/function-01-execute.body.bin",
+      "../wip-sql-normalization/body-fragments/function-54-normalize.body.bin"
+    ]
+  },
+  "regression_gates": {
+    "webassembly_validation": "PASS",
+    "runtime": "Node.js v26.5.0 / V8",
+    "pinned_exact_status_result_snapshot_equivalence": 1259,
+    "generated_whitespace_semicolon_stateful_equivalence": 21600,
+    "generated_whitespace_seed": "0x4a6f6b65",
+    "materialized_sqlite_expected_result_checks": 60000,
+    "malformed_input_fuzz_cases": 10000,
+    "rejected_abi_ranges": 9,
+    "fresh_snapshot_recoveries": 1000,
+    "capacity_rows": 64,
+    "text_case_distinct": true,
+    "atomicity": "PASS",
+    "traps": 0
+  },
+  "rejected_intervention": {
+    "attempt": "Make the shared fixed-byte comparator ASCII case-insensitive.",
+    "counterexample": "SELECT 'ABC' IN ('abc') incorrectly returned true.",
+    "disposition": "Rejected and restored byte-exact comparison. Keyword-case normalization remains unsupported because parser and stored-value comparison share this seam."
+  },
+  "constraint_movement": {
+    "previous": "Equivalent supported SQL was rejected primarily because whitespace and terminator bytes did not exactly match fixed dispatcher patterns.",
+    "new": "The dominant product boundary is now the fixed twelve-table, one-column schema/storage model. Keyword case remains a known parser limitation, but expanding arbitrary schemas requires the larger architectural change users encounter first."
+  },
+  "promotion": {
+    "sequence": 21,
+    "source_free_policy": "Only raw Wasm bytes, opaque function bodies, binary metadata, runtime behavior, and external tests were used. No JokeBase implementation source, WAT, compiler input, or decompiled representation was read, written, or retained.",
+    "public_replication": {
+      "status": "PENDING",
+      "repository": "https://github.com/bitkojine/JokeBase",
+      "branch": "main"
+    }
+  }
+}

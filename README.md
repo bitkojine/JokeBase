@@ -52,11 +52,11 @@ These descriptions follow the official [WebAssembly specification introduction](
 ## Current artifact
 
 - File: `JokeBase-v1.wasm`
-- Size: 19,514 bytes
-- SHA-256: `ca9b5b1bb302243c770af4c25306cbe689d4c532889ecd2a46e66fe0f053d5a8`
-- Promoted sequence: 20
+- Size: 19,915 bytes
+- SHA-256: `17c41f8f16f3e899c48f53314bbe338eb936266c551cf308ad612607ac498e1a`
+- Promoted sequence: 21
 
-Sequence 20 is byte-identical to sequence 19 through the end of every prior core executable and data section. It adds only the artifact-owned `jokebase.diagnostics.v1` custom section, which holds user-facing errors and help for the declared negative ABI statuses. The promotion evidence is in [`artifacts/promoted/JokeBase-0020-evidence.json`](artifacts/promoted/JokeBase-0020-evidence.json).
+Sequence 21 adds raw-binary SQL normalization before the existing dispatcher. Supported statements now tolerate outer whitespace, repeated spaces, tabs and line breaks outside quoted literals, ordinary spacing around parentheses and commas, and one optional trailing semicolon. Quoted TEXT bytes remain exact. The promotion evidence is in [`artifacts/promoted/JokeBase-0021-evidence.json`](artifacts/promoted/JokeBase-0021-evidence.json).
 
 The content-addressed copy is preserved under `artifacts/promoted/`. `artifacts/lineage.json` links every retained promoted binary to its parent.
 
@@ -85,6 +85,7 @@ JokeBase currently provides twelve bounded one-column table identities, each wit
 - the declared `INSERT ... SELECT` copies used by the pinned suite, validated before mutation;
 - direct-table and `SELECT *` subquery membership over the integer and TEXT catalogs with SQL three-valued semantics;
 - deterministic host-storable snapshots of all twelve tables with structural and semantic validation before atomic restoration.
+- normalization of unquoted ASCII whitespace and one optional trailing semicolon across the supported grammar, without changing bytes inside single-quoted literals.
 
 The supported embedding interface is versioned in [`ABI.md`](ABI.md). SQL bytes must be staged wholly inside memory addresses `[1024,4096)`, with a maximum length of 3,072 bytes. Sequence 19 rejects every other `execute(ptr,len)` range with `-10` before reading it. Because the linear memory is exported, direct host writes outside that window remain outside the contract and can corrupt module state before JokeBase receives control.
 
@@ -92,7 +93,7 @@ Negative ABI codes are compact machine-facing statuses, not sufficient user-faci
 
 Snapshot restoration uses `db_snapshot_read(len)`: the host places the image at the fixed address returned by `db_snapshot_ptr()` and supplies only its length. An earlier revision of `ABI.md` incorrectly documented a caller-selected pointer parameter. The binary always had the one-parameter export; `tests/snapshot-abi-contract-v1.json` preserves the correction probe and atomic short-image rejection result.
 
-This is not a general SQL implementation. Tables beyond the twelve declared identities, multiple columns, arbitrary identifiers or schemas, stored floating-point/blob values, general projection of catalog rows, joins, grouping, ordering, indexes, transactions, internal filesystem I/O, and concurrency remain unsupported. Stored TEXT is limited to 32 unescaped UTF-8 bytes; embedded quote escapes are unsupported. Decimal exponent notation and more than six fractional digits are unsupported. Text membership against integer `t1` recognizes numeric affinity only for optional-minus integers. `t2` and the newer catalogs do not implement general update/delete/projection families. SQL keyword casing and whitespace are not consistently general outside the tested grammar. Sequence-18 snapshots are intentionally rejected by sequence 19 because the catalog snapshot format changed. The exact contract is recorded in `JokeBase-v1-evidence.json`.
+This is not a general SQL implementation. Tables beyond the twelve declared identities, multiple columns, arbitrary identifiers or schemas, stored floating-point/blob values, general projection of catalog rows, joins, grouping, ordering, indexes, transactions, internal filesystem I/O, and concurrency remain unsupported. Stored TEXT is limited to 32 unescaped UTF-8 bytes; embedded quote escapes are unsupported. Decimal exponent notation and more than six fractional digits are unsupported. Text membership against integer `t1` recognizes numeric affinity only for optional-minus integers. `t2` and the newer catalogs do not implement general update/delete/projection families. SQL keyword casing remains exact, and normalization is guaranteed only for the tested supported grammar. Sequence-18 snapshots are intentionally rejected by sequence 19 and later because the catalog snapshot format changed. The exact contract is recorded in `JokeBase-v1-evidence.json`.
 
 ## External evidence
 

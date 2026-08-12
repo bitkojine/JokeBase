@@ -91,6 +91,12 @@ For every supported host integration, test at least one contextual example for e
 
 `db_reset()` clears all schemas, rows, results, and mutable database state. The exports `db_create`, `db_insert`, `db_count`, `db_get`, and `db_delete` are retained for compatibility with the original one-table integer ABI. New integrations should use SQL through `execute`.
 
+### SQL normalization
+
+From sequence 21, `execute(ptr, len)` normalizes the staged bytes in place after validating the complete `[1024,4096)` input range and before dispatch. It trims outer ASCII whitespace, collapses unquoted spaces/tabs/line breaks, normalizes tested spacing around parentheses and commas, and removes one optional trailing semicolon. Bytes inside single-quoted literals remain exact. The normalized length never exceeds the supplied length.
+
+This is not a general lexer contract. Keyword case remains exact, embedded quote escapes remain unsupported, and only the documented SQL grammar is covered. Hosts should submit ordinary UTF-8 SQL and must not depend on the post-call contents of the staging window.
+
 ## Host-managed snapshots
 
 JokeBase snapshots are deterministic binary images managed by the host:

@@ -273,3 +273,11 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Interaction and accessibility: the expanded view locks page scrolling, keeps a labeled close button visible above the canvas, accepts the Escape key, exposes dialog semantics, and retains reduced-motion behavior.
 - Preservation and deployment: public adversarial-host commit `37d1944be895bf1e258c142f8aa198f7e72486c2`; production Sites version 8 deployed successfully at `https://jokebase-wasm-live.fshfgh.chatgpt.site`.
 - Control conclusion: high-detail observability needs an intentional inspection surface; a background can reveal shape, while a reversible full-screen mode supports deliberate exploration without obscuring the database controls permanently.
+
+## 2026-08-12 — control record 0032
+
+- Teaching-layer intervention: expanded the full-screen floorplan into a source-free artifact guide. It now reports the complete byte count and browser-computed SHA-256, section payload sizes and file ranges, payload shares, declared vector entry counts, custom-section names, import declarations, and every public export with its WebAssembly kind.
+- Guided interpretation: every standard section identity has a plain-language purpose description, and a selectable section index synchronizes the textual explanation with the highlighted floorplan region.
+- Epistemic boundary: the guide distinguishes structural facts from behavioral evidence. It explicitly refuses to decode function instructions or data contents and states that module shape cannot prove database correctness; black-box tests remain the behavioral sensor.
+- Preservation and deployment: public adversarial-host commit `7ff3d4ecfc58393ba5ebadb11f4931c04a6c48d9`; production Sites version 9 deployed successfully at `https://jokebase-wasm-live.fshfgh.chatgpt.site`.
+- Control conclusion: a useful source-free visualization should teach both what is observable and what cannot be inferred, preventing attractive binary structure from being mistaken for semantic understanding.

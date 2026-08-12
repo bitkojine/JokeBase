@@ -249,3 +249,11 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 
 - Publication observation: public GitHub `main` advanced to sequence-21 promotion commit `3b4872f`; a fresh GitHub-served `JokeBase-v1.wasm` download was 19,915 bytes and matched SHA-256 `17c41f8f16f3e899c48f53314bbe338eb936266c551cf308ad612607ac498e1a`.
 - Replication conclusion: the promoted current artifact, content-addressed archive, local lineage, and public backup identify the same sequence-21 bytes.
+
+## 2026-08-12 — control record 0029
+
+- Adversarial-host feedback update: replaced the obsolete “space inside `VALUES` fails” probe with a sequence-21 constraint-movement probe. Repeated whitespace, tabs, newlines, punctuation spacing, and an optional semicolon now succeed through the real artifact; lowercase keywords remain an explicit failing counterexample.
+- New constraint display: the host names fixed schema/storage architecture as the current bottleneck and probes arbitrary table names plus multi-column schemas before showing the one declared schema that succeeds.
+- Thin-host control: the website still performs no SQL normalization and owns no diagnostic mapping. It stages the submitted bytes, invokes the public ABI, and decodes the artifact-owned `jokebase.diagnostics.v1` section generically.
+- Preservation and deployment: the public host repository advanced to commit `c8ff2918456ebfbf99704d426c8ebbf17c1c1ff4`; its exact promoted sequence-21 binary is 19,915 bytes. Sites version 6 deployed successfully at `https://jokebase-wasm-live.fshfgh.chatgpt.site`.
+- Control conclusion: when a constraint moves, the external sensor must move with it. Continuing to demonstrate the fixed failure would create stale feedback and hide the next system limit.

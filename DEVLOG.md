@@ -184,3 +184,10 @@ Git history is an additional integrity layer, not a substitute for this rule. A 
 - Artifact identity during the run: 18,438 bytes; SHA-256 `ca3c9d4d3c0a76767281410e1df5da713f1e5f40e26c5635b3106eb09458580b`.
 - Communication constraint: available terminal applications could not be directly controlled for literal operating-system capture, so the public description calls the result a terminal-style rendering of live output rather than misrepresenting it as a graphical screen recording.
 - Control conclusion: visual demonstrations must preserve the same claim boundary as test evidence; a clean video is not a license to invent an interface or hide an unsupported operation.
+
+## 2026-08-12 — control record 0021
+
+- User-interface observation: the first public browser demonstration rendered a correct missing-table result as bare `Error -2`. The result accurately reflected a fresh instance with no `t1`, but did not explain that boundary or the next useful action.
+- Diagnostic-policy intervention: added the host diagnostic contract to `ABI.md`. It preserves numeric ABI statuses for machine callers while requiring interactive hosts to add a stable `JB-` identifier, plain-English primary error, observed context, concrete help, and the submitted SQL/available location information.
+- Rust diagnostic lesson applied: separate concise primary error, contextual note, and actionable help; give recurring errors stable identifiers with explanatory documentation; and test the rendered diagnostic surface rather than only a numeric status. The rule is informed by Rust's official compiler diagnostic and UI-test guidance, not by any implementation inspection.
+- Control conclusion: interface observability is part of the control loop. A binary may return the right status and still fail the end-user feedback loop if its host fails to convert that status into an understandable, actionable observation.

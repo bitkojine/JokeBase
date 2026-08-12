@@ -46,6 +46,45 @@ The current error codes are:
 | `-5` | duplicate non-NULL primary-key or unique value |
 | `-10` | unsupported/malformed SQL, unsupported input range, or invalid snapshot input |
 
+## Host diagnostic contract
+
+The binary return code is a compact, stable machine-facing status. It is not a complete end-user diagnostic. Every host, command-line tool, test report, and web interface built for JokeBase **must translate a negative code into a useful diagnostic**. Do not render a bare value such as `Error -2` as the final user-visible outcome.
+
+The required shape is:
+
+```text
+error[JB-0002]: table `t1` does not exist in this database instance
+  note: this is a fresh, empty instance
+  help: create it first with `CREATE TABLE t1(x INTEGER)`
+```
+
+The `JB-` identifier is a stable host diagnostic identifier; it maps one-to-one to the ABI return code today (`JB-0002` maps to `-2`). It does not change the WebAssembly ABI or assert that the binary itself contains text diagnostics.
+
+Each displayed error must include all applicable parts:
+
+1. a short, plain-English primary message naming the failed operation and relevant object/value;
+2. a stable `JB-` diagnostic identifier and the raw ABI code for programmatic support and evidence;
+3. a `note` with relevant observed context (for example, that a new instance was selected, the fixed row limit is 64, or the input was outside the permitted staging window);
+4. a concrete `help` action when one is known; and
+5. the exact submitted SQL, with a best-effort byte offset or highlighted span where the host can determine one without guessing.
+
+Suggested baseline messages:
+
+| ABI code | Host diagnostic | Primary message | Useful help |
+| --- | --- | --- | --- |
+| `-1` | `JB-0001` | table already exists | use a new instance, or select another declared table identity |
+| `-2` | `JB-0002` | referenced table does not exist in this database instance | create the declared table first; after a new instance, all tables are absent |
+| `-3` | `JB-0003` | table has reached its fixed 64-row capacity | delete a row, reset/start a new instance, or use a different declared table |
+| `-4` | `JB-0004` | requested row or result index is outside the available range | inspect `result_count()` before requesting an index |
+| `-5` | `JB-0005` | duplicate non-NULL value violates this table's unique or primary-key constraint | use a different non-NULL value; SQL `NULL` is not a duplicate for the supported unique tables |
+| `-10` | `JB-0010` | statement or host input is unsupported or malformed | use a documented statement form; check exact spacing/casing and the `[1024,4096)` input window |
+
+This policy is deliberately modeled after Rust compiler diagnostics: use simple, concise primary errors; separate explanatory context into `note`; put corrective action in `help`; give recurring errors stable identifiers with extended documentation; and test diagnostic output as a public interface. Rust's official compiler guide describes that structure and style, including structured help/suggestions and exhaustive UI-test expectations. See the [Rust diagnostic guide](https://rustc-dev-guide.rust-lang.org/diagnostics.html), [error-code guidance](https://rustc-dev-guide.rust-lang.org/diagnostics/error-codes.html), and [UI-test guidance](https://rustc-dev-guide.rust-lang.org/tests/ui.html).
+
+### Diagnostic tests
+
+For every supported host integration, test at least one contextual example for each negative code it can emit. Assertions must cover the diagnostic identifier, primary message, contextual note, and help text—not only the raw return value. Treat new bare numeric errors in interactive surfaces as a regression. The source-free rule remains intact: these tests observe only public ABI inputs and outputs.
+
 ## Lifecycle and legacy row API
 
 `jokebase_version() -> i32` returns the ABI major version, currently `1`.
